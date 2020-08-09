@@ -1,0 +1,24 @@
+import {CocktailAPI} from "./cocktailAPI.js";
+
+//////////////////////////////
+// VARIABLES
+//////////////////////////////
+const getRandomCocktailBtn = document.querySelector("#get-random-cocktail");
+
+//////////////////////////////
+// EVENTS
+//////////////////////////////
+getRandomCocktailBtn.addEventListener("click", (e) => {
+    let api = new CocktailAPI();
+    api.getRandomCocktail().then(result => console.log(result));
+});
+
+//////////////////////////////
+// HANDLERS
+//////////////////////////////
+
+//////////////////////////////
+// HELPERS
+//////////////////////////////
+
+
