@@ -9,6 +9,17 @@ export class CocktailDBAPI {
       return new Cocktail(cocktailData.drinks[0].strDrink, getIngredients(cocktailData.drinks[0]))
     }
   }
+
+  async getAllIngredients() {
+    let response = await fetch(
+      "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
+    );
+
+    if (response.ok) {
+      const ingredientsListData = await response.json();
+      return ingredientsListData.drinks;
+    }
+  }
 }
 
 export class Cocktail {
