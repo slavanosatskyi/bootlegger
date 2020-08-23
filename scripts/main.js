@@ -39,7 +39,8 @@ function showQuiz(cocktail) {
   cocktailQuiz.classList.add("cocktail-quiz");
   document.querySelector("main").append(cocktailQuiz);
   showCocktailName(cocktail.name);
-  showCocktailIngedients(cocktail.ingredients);
+  showAmountOfIngredients(cocktail.ingredients.length);
+  showCocktailIngredients(cocktail.ingredients);
 }
 
 function cleanQuiz() {
@@ -55,10 +56,14 @@ function showCocktailName(name) {
   document.querySelector("#cocktail-quiz").append(cocktailNameItem);
 }
 
-async function showCocktailIngedients(ingredients) {
+function showAmountOfIngredients(amount) {
+  console.log("TODO!!!!");
+}
+
+async function showCocktailIngredients(ingredients) {
   const randomIngredients = await getAdditionalRandomIngredients(ingredients);
   ingredients.push(...randomIngredients);
-  console.log(ingredients);
+  ingredients = shuffle(ingredients);
 
   const cocktailIngredientsItem = document.createElement("ul");
   for (const ingredient of ingredients) {
@@ -71,7 +76,8 @@ async function getAdditionalRandomIngredients(intialIngredients) {
   const api = new CocktailDBAPI();
   let allAvaliableIngredients = await api.getAllIngredients();
 
-  let IngredientsCountToBeAdded = SLOTS_FOR_INGREDIENTS - intialIngredients.length;
+  let IngredientsCountToBeAdded =
+    SLOTS_FOR_INGREDIENTS - intialIngredients.length;
   const randomIngredients = [];
   while (IngredientsCountToBeAdded != 0) {
     const randomIngredient =
@@ -84,4 +90,16 @@ async function getAdditionalRandomIngredients(intialIngredients) {
     }
   }
   return randomIngredients;
+}
+
+function shuffle(array) {
+  let indexes = array.map((value, index) => index);
+  let shuffledArray = [];
+  for (let i = 0; i < array.length; i++) {
+    const randomIndex = Math.round(Math.random() * (indexes.length - 1));
+    shuffledArray.push(array[indexes[randomIndex]]);
+    indexes.splice(randomIndex, 1);
+  }
+
+  return shuffledArray;
 }
