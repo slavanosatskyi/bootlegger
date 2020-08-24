@@ -20,7 +20,7 @@ getRandomCocktailBtn.addEventListener("click", (e) => {
 // HANDLERS
 //////////////////////////////
 async function generateCocktailQuiz() {
-  const cocktail = await getRandomCocktail();
+  const cocktail = await CocktailDBAPI.getRandomCocktail();
   cleanQuiz();
   showQuiz(cocktail);
 }
@@ -28,11 +28,6 @@ async function generateCocktailQuiz() {
 //////////////////////////////
 // HELPERS
 //////////////////////////////
-async function getRandomCocktail() {
-  let api = new CocktailDBAPI();
-  return await api.getRandomCocktail();
-}
-
 function cleanQuiz() {
   const cocktailQuizItem = document.querySelector("#cocktail-quiz");
   if (cocktailQuizItem) {
@@ -41,61 +36,58 @@ function cleanQuiz() {
 }
 
 function showQuiz(cocktail) {
-  let cocktailQuiz = document.querySelector("#cocktail-quiz");
-  if (!cocktailQuiz) {
-    cocktailQuiz = document.createElement("div");
-    cocktailQuiz.id = "cocktail-quiz";
-    cocktailQuiz.classList.add("cocktail-quiz");
-    document.querySelector("main").append(cocktailQuiz);
+  if (!document.querySelector("#cocktail-quiz")) {
+    const cocktailQuizItem = document.createElement("div");
+    cocktailQuizItem.id = "cocktail-quiz";
+    cocktailQuizItem.classList.add("cocktail-quiz");
+    document.querySelector("main").append(cocktailQuizItem);
   }
-  cocktailQuiz.innerHTML = '<div class="cocktail-quiz__header"></div';
-  showCocktailName(cocktail.name);
-  showAmountOfIngredients(cocktail.ingredients.length);
+  showCocktailInfo(cocktail);
   showCocktailIngredients(cocktail.ingredients);
 }
 
-function showCocktailName(name) {
-  const cocktailNameItem = document.createElement("h2");
-  cocktailNameItem.innerText = name;
-  document.querySelector(".cocktail-quiz__header").append(cocktailNameItem);
-}
-
-function showAmountOfIngredients(amount) {
-  const ingredientsAmount = document.createElement("div");
-  ingredientsAmount.innerHTML = `0/${amount}`;
-  document.querySelector(".cocktail-quiz__header").append(ingredientsAmount);
+function showCocktailInfo(cocktail) {
+  const cocktailQuizItem = document.querySelector("#cocktail-quiz");
+  cocktailQuizItem.innerHTML = `
+    <div class="cocktail-quiz__header">
+      <figure>
+        <img src="${cocktail.imgURL}" alt="" />
+        <figcaption>${cocktail.name}<figcaption>
+      </figure>
+      <div>0/${cocktail.ingredients.length}</div>
+    </div>
+  `;
 }
 
 async function showCocktailIngredients(ingredients) {
-  const randomIngredients = await getAdditionalRandomIngredients(ingredients);
-  ingredients.push(...randomIngredients);
+  await addRandomIngredients(ingredients);
   ingredients = shuffle(ingredients);
 
   const cocktailIngredientsItem = document.createElement("ul");
   for (const ingredient of ingredients) {
-    cocktailIngredientsItem.innerHTML += `<li>${ingredient}</li>`;
+    cocktailIngredientsItem.innerHTML += `
+    <li>
+      <figure>
+        <img src="${CocktailDBAPI.getIngredientImg(ingredient)}" alt="" />
+        <figcaption>${ingredient}</figcaption>
+      </figure>
+    </li>`;
   }
   document.querySelector("#cocktail-quiz").append(cocktailIngredientsItem);
 }
 
-async function getAdditionalRandomIngredients(intialIngredients) {
-  const api = new CocktailDBAPI();
-  let allAvaliableIngredients = await api.getAllIngredients();
+async function addRandomIngredients(intialIngredients) {
+  let allAvaliableIngredients = await CocktailDBAPI.getAllIngredients();
 
-  let IngredientsCountToBeAdded =
-    SLOTS_FOR_INGREDIENTS - intialIngredients.length;
-  const randomIngredients = [];
-  while (IngredientsCountToBeAdded != 0) {
+  while (intialIngredients.length != SLOTS_FOR_INGREDIENTS) {
     const randomIngredient =
       allAvaliableIngredients[
         Math.round(Math.random() * (allAvaliableIngredients.length - 1))
       ];
     if (!intialIngredients.includes(randomIngredient.strIngredient1)) {
-      IngredientsCountToBeAdded -= 1;
-      randomIngredients.push(randomIngredient.strIngredient1);
+      intialIngredients.push(randomIngredient.strIngredient1);
     }
   }
-  return randomIngredients;
 }
 
 function shuffle(array) {
