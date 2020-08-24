@@ -33,16 +33,6 @@ async function getRandomCocktail() {
   return await api.getRandomCocktail();
 }
 
-function showQuiz(cocktail) {
-  const cocktailQuiz = document.createElement("div");
-  cocktailQuiz.id = "cocktail-quiz";
-  cocktailQuiz.classList.add("cocktail-quiz");
-  document.querySelector("main").append(cocktailQuiz);
-  showCocktailName(cocktail.name);
-  showAmountOfIngredients(cocktail.ingredients.length);
-  showCocktailIngredients(cocktail.ingredients);
-}
-
 function cleanQuiz() {
   const cocktailQuizItem = document.querySelector("#cocktail-quiz");
   if (cocktailQuizItem) {
@@ -50,14 +40,30 @@ function cleanQuiz() {
   }
 }
 
+function showQuiz(cocktail) {
+  let cocktailQuiz = document.querySelector("#cocktail-quiz");
+  if (!cocktailQuiz) {
+    cocktailQuiz = document.createElement("div");
+    cocktailQuiz.id = "cocktail-quiz";
+    cocktailQuiz.classList.add("cocktail-quiz");
+    document.querySelector("main").append(cocktailQuiz);
+  }
+  cocktailQuiz.innerHTML = '<div class="cocktail-quiz__header"></div';
+  showCocktailName(cocktail.name);
+  showAmountOfIngredients(cocktail.ingredients.length);
+  showCocktailIngredients(cocktail.ingredients);
+}
+
 function showCocktailName(name) {
   const cocktailNameItem = document.createElement("h2");
   cocktailNameItem.innerText = name;
-  document.querySelector("#cocktail-quiz").append(cocktailNameItem);
+  document.querySelector(".cocktail-quiz__header").append(cocktailNameItem);
 }
 
 function showAmountOfIngredients(amount) {
-  console.log("TODO!!!!");
+  const ingredientsAmount = document.createElement("div");
+  ingredientsAmount.innerHTML = `0/${amount}`;
+  document.querySelector(".cocktail-quiz__header").append(ingredientsAmount);
 }
 
 async function showCocktailIngredients(ingredients) {
