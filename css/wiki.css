@@ -1,0 +1,240 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap");
+.row {
+  width: 100%;
+  max-width: 1240px;
+  margin: auto;
+  padding: 0 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.row .col-1 {
+  width: 8.3333333333%;
+}
+.row .col-2 {
+  width: 16.6666666667%;
+}
+.row .col-3 {
+  width: 25%;
+}
+.row .col-4 {
+  width: 33.3333333333%;
+}
+.row .col-5 {
+  width: 41.6666666667%;
+}
+.row .col-6 {
+  width: 50%;
+}
+.row .col-7 {
+  width: 58.3333333333%;
+}
+.row .col-8 {
+  width: 66.6666666667%;
+}
+.row .col-9 {
+  width: 75%;
+}
+.row .col-10 {
+  width: 83.3333333333%;
+}
+.row .col-11 {
+  width: 91.6666666667%;
+}
+.row .col-12 {
+  width: 100%;
+}
+@media screen and (min-width: 567px) {
+  .row .col-sm-1 {
+    width: 8.3333333333%;
+  }
+  .row .col-sm-2 {
+    width: 16.6666666667%;
+  }
+  .row .col-sm-3 {
+    width: 25%;
+  }
+  .row .col-sm-4 {
+    width: 33.3333333333%;
+  }
+  .row .col-sm-5 {
+    width: 41.6666666667%;
+  }
+  .row .col-sm-6 {
+    width: 50%;
+  }
+  .row .col-sm-7 {
+    width: 58.3333333333%;
+  }
+  .row .col-sm-8 {
+    width: 66.6666666667%;
+  }
+  .row .col-sm-9 {
+    width: 75%;
+  }
+  .row .col-sm-10 {
+    width: 83.3333333333%;
+  }
+  .row .col-sm-11 {
+    width: 91.6666666667%;
+  }
+  .row .col-sm-12 {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 768px) {
+  .row .col-md-1 {
+    width: 8.3333333333%;
+  }
+  .row .col-md-2 {
+    width: 16.6666666667%;
+  }
+  .row .col-md-3 {
+    width: 25%;
+  }
+  .row .col-md-4 {
+    width: 33.3333333333%;
+  }
+  .row .col-md-5 {
+    width: 41.6666666667%;
+  }
+  .row .col-md-6 {
+    width: 50%;
+  }
+  .row .col-md-7 {
+    width: 58.3333333333%;
+  }
+  .row .col-md-8 {
+    width: 66.6666666667%;
+  }
+  .row .col-md-9 {
+    width: 75%;
+  }
+  .row .col-md-10 {
+    width: 83.3333333333%;
+  }
+  .row .col-md-11 {
+    width: 91.6666666667%;
+  }
+  .row .col-md-12 {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 992px) {
+  .row .col-lg-1 {
+    width: 8.3333333333%;
+  }
+  .row .col-lg-2 {
+    width: 16.6666666667%;
+  }
+  .row .col-lg-3 {
+    width: 25%;
+  }
+  .row .col-lg-4 {
+    width: 33.3333333333%;
+  }
+  .row .col-lg-5 {
+    width: 41.6666666667%;
+  }
+  .row .col-lg-6 {
+    width: 50%;
+  }
+  .row .col-lg-7 {
+    width: 58.3333333333%;
+  }
+  .row .col-lg-8 {
+    width: 66.6666666667%;
+  }
+  .row .col-lg-9 {
+    width: 75%;
+  }
+  .row .col-lg-10 {
+    width: 83.3333333333%;
+  }
+  .row .col-lg-11 {
+    width: 91.6666666667%;
+  }
+  .row .col-lg-12 {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .row .col-xl-1 {
+    width: 8.3333333333%;
+  }
+  .row .col-xl-2 {
+    width: 16.6666666667%;
+  }
+  .row .col-xl-3 {
+    width: 25%;
+  }
+  .row .col-xl-4 {
+    width: 33.3333333333%;
+  }
+  .row .col-xl-5 {
+    width: 41.6666666667%;
+  }
+  .row .col-xl-6 {
+    width: 50%;
+  }
+  .row .col-xl-7 {
+    width: 58.3333333333%;
+  }
+  .row .col-xl-8 {
+    width: 66.6666666667%;
+  }
+  .row .col-xl-9 {
+    width: 75%;
+  }
+  .row .col-xl-10 {
+    width: 83.3333333333%;
+  }
+  .row .col-xl-11 {
+    width: 91.6666666667%;
+  }
+  .row .col-xl-12 {
+    width: 100%;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body,
+.container {
+  height: 100vh;
+}
+
+body {
+  font-size: 16px;
+  font-family: "Oswald", sans-serif;
+  color: #2d3436;
+  background: #fab1a0;
+}
+
+header {
+  background-color: #00cecbd5;
+}
+header .row {
+  padding: 10px 30px;
+}
+header ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+}
+.logo_icon {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  padding-right: 5px;
+}
+
+/*# sourceMappingURL=wiki.css.map */

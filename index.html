@@ -1,22 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/home.css">
     <title>Bootlegger</title>
 </head>
+
 <body>
     <header>
-        <h1>Bootlegger</h1>
-        <ul>
-            <li><a href="/index.html">HOME</a></li>
-            <li><a href="/wiki.html">WIKI</a></li>
-        </ul>
+        <div class="row">
+            <div class="col-9 logo">
+                <div class="logo_icon"><i class="fas fa-cocktail"></i></div>
+                <h1>Bootlegger</h1>
+            </div>
+            <ul class="col-3">
+                <li><a href="./index.html">HOME</a></li>
+                <li><a href="./wiki.html">WIKI</a></li>
+            </ul>
+        </div>
     </header>
     <main>
         <button id="get-random-cocktail">Random cocktail</button>
+        <div id="cocktail-quiz" class="cocktail-quiz">
+            <div class="cocktail-quiz__header">
+                <figure>
+                    <img src="https://www.thecocktaildb.com/images/media/drink/vwxrsw1478251483.jpg/preview" alt="">
+                    <figcaption>Mojito #3<figcaption>
+                        </figcaption>
+                    </figcaption>
+                </figure>
+                <div>0/5</div>
+            </div>
+            <ul>
+                <li>
+                    <figure>
+                        <img src="https://www.thecocktaildb.com/images/ingredients/Dark rum-Medium.png" alt="">
+                        <figcaption>Dark rum</figcaption>
+                    </figure>
+                </li>
+                <li>
+                    <figure>
+                        <img src="https://www.thecocktaildb.com/images/ingredients/Angostura bitters-Medium.png" alt="">
+                        <figcaption>Angostura bitters</figcaption>
+                    </figure>
+                </li>
+                <li>
+                    <figure>
+                        <img src="https://www.thecocktaildb.com/images/ingredients/Grape juice-Medium.png" alt="">
+                        <figcaption>Grape juice</figcaption>
+                    </figure>
+                </li>
+                <li>
+                    <figure>
+                        <img src="https://www.thecocktaildb.com/images/ingredients/Mint-Medium.png" alt="">
+                        <figcaption>Mint</figcaption>
+                    </figure>
+                </li>
+                <li>
+                    <figure>
+                        <img src="https://www.thecocktaildb.com/images/ingredients/Club soda-Medium.png" alt="">
+                        <figcaption>Club soda</figcaption>
+                    </figure>
+                </li>
+                <li>
+                    <figure>
+                        <img src="https://www.thecocktaildb.com/images/ingredients/Lemon juice-Medium.png" alt="">
+                        <figcaption>Lemon juice</figcaption>
+                    </figure>
+                </li>
+                <li>
+                    <figure>
+                        <img src="https://www.thecocktaildb.com/images/ingredients/Egg-Medium.png" alt="">
+                        <figcaption>Egg</figcaption>
+                    </figure>
+                </li>
+                <li>
+                    <figure>
+                        <img src="https://www.thecocktaildb.com/images/ingredients/Whiskey-Medium.png" alt="">
+                        <figcaption>Whiskey</figcaption>
+                    </figure>
+                </li>
+                <li>
+                    <figure>
+                        <img src="https://www.thecocktaildb.com/images/ingredients/Red wine-Medium.png" alt="">
+                        <figcaption>Red wine</figcaption>
+                    </figure>
+                </li>
+            </ul>
+        </div>
     </main>
 
+
     <script src="./scripts/main.js" type="module"></script>
+    <script src="https://kit.fontawesome.com/1968adc72e.js" crossorigin="anonymous"></script>
 </body>
+
 </html>

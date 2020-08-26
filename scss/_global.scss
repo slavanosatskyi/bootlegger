@@ -1,0 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap");
+@import "grid";
+
+///////////////////////
+// VARIABLES
+///////////////////////
+$font-stack: "Oswald", sans-serif;
+$primary-color: #2d3436;
+$secondary-color: #636e72;
+$background-color: #fab1a0;
+
+///////////////////////
+// GENERAL
+///////////////////////
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body,
+.container {
+  height: 100vh;
+}
+
+body {
+  font-size: 16px;
+  font-family: $font-stack;
+  color: $primary-color;
+  background: $background-color;
+}
+
+///////////////////////
+// HEADER
+///////////////////////
+header {
+  background-color: #00cecbd5;
+  .row {
+    padding: 10px 30px;
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.logo {
+  display: flex;
+  &_icon {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    padding-right: 5px;
+  }
+}
