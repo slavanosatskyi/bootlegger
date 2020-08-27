@@ -212,11 +212,20 @@ body {
   font-size: 16px;
   font-family: "Oswald", sans-serif;
   color: #2d3436;
-  background: #fab1a0;
+}
+
+.link {
+  text-decoration: none;
+  color: #2d3436;
+  font-size: 1.5rem;
+}
+
+.link:hover {
+  color: #636e72;
 }
 
 header {
-  background-color: #00cecbd5;
+  background: #00cecb;
 }
 header .row {
   padding: 10px 30px;
@@ -224,7 +233,8 @@ header .row {
 header ul {
   list-style: none;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .logo {

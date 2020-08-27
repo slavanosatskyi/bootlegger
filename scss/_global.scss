@@ -5,9 +5,11 @@
 // VARIABLES
 ///////////////////////
 $font-stack: "Oswald", sans-serif;
-$primary-color: #2d3436;
-$secondary-color: #636e72;
-$background-color: #fab1a0;
+$text-color: #2d3436;
+$link-color: #636e72;
+$primary-color: #fab1a0;
+$secondary-color: #00cecb;
+$selected-ingredient: #0984e3;
 
 ///////////////////////
 // GENERAL
@@ -27,15 +29,24 @@ body,
 body {
   font-size: 16px;
   font-family: $font-stack;
-  color: $primary-color;
-  background: $background-color;
+  color: $text-color;
+}
+
+.link {
+  text-decoration: none;
+  color: $text-color;
+  font-size: 1.5rem;
+}
+
+.link:hover {
+  color: $link-color;
 }
 
 ///////////////////////
 // HEADER
 ///////////////////////
 header {
-  background-color: #00cecbd5;
+  background: $secondary-color;
   .row {
     padding: 10px 30px;
   }
@@ -43,7 +54,8 @@ header {
   ul {
     list-style: none;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    align-items: center;
   }
 }
 

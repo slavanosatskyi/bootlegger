@@ -2,18 +2,26 @@ import { CocktailDBAPI } from "./cocktailAPI.js";
 //////////////////////////////
 // CONSTANTS
 //////////////////////////////
-const SLOTS_FOR_INGREDIENTS = 9;
+const SLOTS_FOR_INGREDIENTS = 12;
 
 //////////////////////////////
 // VARIABLES
 //////////////////////////////
 const getRandomCocktailBtn = document.querySelector("#get-random-cocktail");
+const mainContainer = document.querySelector("main");
 
 //////////////////////////////
 // EVENTS
 //////////////////////////////
 getRandomCocktailBtn.addEventListener("click", (e) => {
   generateCocktailQuiz();
+});
+
+mainContainer.addEventListener("click", (e) => {
+  const ingredientCardItem = e.target.closest(".ingredient-card");
+  if (ingredientCardItem) {
+    selectIngredient(ingredientCardItem);
+  }
 });
 
 //////////////////////////////
@@ -23,6 +31,10 @@ async function generateCocktailQuiz() {
   const cocktail = await CocktailDBAPI.getRandomCocktail();
   cleanQuiz();
   showQuiz(cocktail);
+}
+
+function selectIngredient(ingredientCardItem) {
+  ingredientCardItem.classList.toggle("ingredient-card_selected");
 }
 
 //////////////////////////////
@@ -48,13 +60,14 @@ function showQuiz(cocktail) {
 
 function showCocktailInfo(cocktail) {
   const cocktailQuizItem = document.querySelector("#cocktail-quiz");
+
   cocktailQuizItem.innerHTML = `
     <div class="cocktail-quiz__header">
-      <figure>
+      <div class="cocktail-quiz__cocktail-image">
         <img src="${cocktail.imgURL}" alt="" />
-        <figcaption>${cocktail.name}<figcaption>
-      </figure>
-      <div>0/${cocktail.ingredients.length}</div>
+      </div>
+      <h2 class="cocktail-quiz__title">${cocktail.name}</h2>
+      <div class="cocktail-quiz__ingredients-count">0/${cocktail.ingredients.length}</div>
     </div>
   `;
 }
@@ -64,13 +77,16 @@ async function showCocktailIngredients(ingredients) {
   ingredients = shuffle(ingredients);
 
   const cocktailIngredientsItem = document.createElement("ul");
+  cocktailIngredientsItem.classList.add("ingredients-list");
   for (const ingredient of ingredients) {
     cocktailIngredientsItem.innerHTML += `
-    <li>
-      <figure>
-        <img src="${CocktailDBAPI.getIngredientImg(ingredient)}" alt="" />
-        <figcaption>${ingredient}</figcaption>
-      </figure>
+    <li class="col-6 col-md-2">
+      <div class="ingredient-card">
+        <div class="ingredient-img">
+          <img src="${CocktailDBAPI.getIngredientImg(ingredient)}" alt="" />
+        </div>
+        <p class="ingredient-name">${ingredient}</p>
+      </div>
     </li>`;
   }
   document.querySelector("#cocktail-quiz").append(cocktailIngredientsItem);
