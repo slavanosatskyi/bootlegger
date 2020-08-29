@@ -100,7 +100,7 @@ function showCocktailInfo() {
   const cocktailQuizItem = document.querySelector("#cocktail-quiz");
 
   cocktailQuizItem.innerHTML = `
-    <div class="cocktail-quiz__header">
+    <div class="cocktail-quiz__header row">
       <div class="cocktail-quiz__cocktail-image">
         <img src="${Quiz.cocktail.imgURL}" alt="" />
       </div>
@@ -117,6 +117,7 @@ async function showCocktailIngredients() {
 
   const cocktailIngredientsItem = document.createElement("ul");
   cocktailIngredientsItem.classList.add("ingredients-list");
+  cocktailIngredientsItem.classList.add("row");
   for (const ingredient of ingredients) {
     cocktailIngredientsItem.innerHTML += `
     <li class="col-6 col-md-2">

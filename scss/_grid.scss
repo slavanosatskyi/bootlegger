@@ -1,28 +1,14 @@
 .row {
     width: 100%;
     max-width: 1240px;
-    margin: auto;
     padding: 0 10px;
     display: flex;
+    margin: 0 auto;
     justify-content: space-between;
 
-    @mixin grid-columns($col-size) {
-        @for $i from 1 through 12 {
-            .#{$col-size}-#{$i} {
-                width: $i / 12 * 100%;
-            }
-        }
-    }
-
-    @mixin media-query($col-size, $min-width) {
-        @media screen and (min-width: $min-width) {
-            @include grid-columns(col-#{$col-size});
-        }
-    }
-
     @include grid-columns(col);
-    @include media-query(sm, 567px);
-    @include media-query(md, 768px);
-    @include media-query(lg, 992px);
-    @include media-query(xl, 1200px);
+    @include grid-colums-for(sm);
+    @include grid-colums-for(md);
+    @include grid-colums-for(lg);
+    @include grid-colums-for(xl);
 }

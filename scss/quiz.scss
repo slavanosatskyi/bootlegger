@@ -2,7 +2,6 @@
 
 main {
     margin: auto;
-    width: 90%;
     display: flex;
     flex-direction: column;
 }
@@ -18,7 +17,6 @@ main {
         justify-content: space-between;
         background: $primary-color;
         position: relative;
-        padding: 10px;
         height: 220px;  
     }
 
@@ -75,11 +73,11 @@ main {
     }
 
     &_wrong {
-        border: 3px solid #d63031;
+        border: 3px solid $wrong-ingredient;
     }
 
     &_correct {
-        border: 3px solid #00b894;
+        border: 3px solid $correct-ingredient;
     }
 
     &:hover {

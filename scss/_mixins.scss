@@ -1,0 +1,28 @@
+@mixin breakpoint($size) {
+    @if $size == sm {
+        @media screen and (min-width: 567px){@content;}
+    }
+    @else if $size == md {
+        @media screen and (min-width: 768px){@content;}
+    }
+    @else if $size == lg {
+        @media screen and (min-width: 992px){@content;}
+    }
+    @if $size == xl {
+        @media screen and (min-width: 1200px){@content;}
+    }
+}
+
+@mixin grid-columns($col-size) {
+    @for $i from 1 through 12 {
+        .#{$col-size}-#{$i} {
+            width: $i / 12 * 100%;
+        }
+    }
+}
+
+@mixin grid-colums-for($col-size) {
+    @include breakpoint($col-size) {
+        @include grid-columns(col-#{$col-size});
+    }
+}

@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap");
+@import "mixins";
 @import "grid";
 
 ///////////////////////
@@ -10,6 +11,10 @@ $link-color: #636e72;
 $primary-color: #fab1a0;
 $secondary-color: #00cecb;
 $selected-ingredient: #0984e3;
+$wrong-ingredient: #d63031;
+$correct-ingredient: #00b894;
+
+
 
 ///////////////////////
 // GENERAL
@@ -36,10 +41,9 @@ body {
   text-decoration: none;
   color: $text-color;
   font-size: 1.5rem;
-}
-
-.link:hover {
-  color: $link-color;
+  &:hover {
+    color: $link-color;
+  }
 }
 
 ///////////////////////
@@ -47,15 +51,27 @@ body {
 ///////////////////////
 header {
   background: $secondary-color;
-  .row {
-    padding: 10px 30px;
+
+  .nav {
+    display: none;
+    @include breakpoint(md) {
+      list-style: none;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }   
   }
 
-  ul {
-    list-style: none;
+  .menu {
     display: flex;
-    justify-content: space-around;
     align-items: center;
+    color: $text-color;
+    &:hover {
+      color: $link-color;
+    }
+    @include breakpoint(md) {
+      display: none;
+    }
   }
 }
 
