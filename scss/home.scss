@@ -67,16 +67,24 @@ main {
     border: 1px solid $text-color;
     border-radius: 5px;
     box-shadow: 0px 5px 10px #5a57574f;
-    transition: transform 0.2s;
+    transition: border 0.2s;
     background: #fff;
 
     &_selected {
         border: 3px solid $selected-ingredient;
     }
-}
 
-.ingredient-card:hover {
-    transform: scale(1.2);
+    &_wrong {
+        border: 3px solid #d63031;
+    }
+
+    &_correct {
+        border: 3px solid #00b894;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .ingredient-name {

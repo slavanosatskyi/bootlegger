@@ -43,7 +43,7 @@ function getIngredients(drink) {
   let index = 1;
   const ingredients = [];
   while (drink[variableName + index]) {
-    ingredients[index - 1] = drink[variableName + index];
+    ingredients.push(drink[variableName + index]);
     index++;
   }
 
