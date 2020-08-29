@@ -8,6 +8,7 @@ const SLOTS_FOR_INGREDIENTS = 12;
 // VARIABLES
 //////////////////////////////
 const getRandomCocktailBtn = document.querySelector("#get-random-cocktail");
+const menuBtn = document.querySelector("#menu-btn");
 const mainContainer = document.querySelector("main");
 
 const Quiz = {
@@ -30,6 +31,10 @@ const Quiz = {
 //////////////////////////////
 getRandomCocktailBtn.addEventListener("click", (e) => {
   generateCocktailQuiz();
+});
+
+menuBtn.addEventListener("click", (e) => {
+  document.querySelector(".nav").classList.toggle("nav_hidden");
 });
 
 mainContainer.addEventListener("click", (e) => {
