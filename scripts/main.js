@@ -9,7 +9,8 @@ const SLOTS_FOR_INGREDIENTS = 12;
 //////////////////////////////
 const getRandomCocktailBtn = document.querySelector("#get-random-cocktail");
 const burgerBtn = document.querySelector(".header__burger");
-const mainContainer = document.querySelector("main");
+const cocktailQuizItem = document.querySelector(".cocktail-quiz");
+
 
 const Quiz = {
   cocktail: null,
@@ -36,7 +37,7 @@ burgerBtn.addEventListener("click", (e) => {
   document.querySelector(".header__burger").classList.toggle("active");
 });
 
-mainContainer.addEventListener("click", (e) => {
+cocktailQuizItem.addEventListener("click", (e) => {
   const ingredientCardItem = e.target.closest(".ingredient-card");
   if (ingredientCardItem && !Quiz.isQuizReady()) {
     selectIngredient(ingredientCardItem);
@@ -81,7 +82,6 @@ function selectIngredient(ingredientCardItem) {
 // HELPERS
 //////////////////////////////
 function resetQuiz() {
-  const cocktailQuizItem = document.querySelector("#cocktail-quiz");
   if (cocktailQuizItem) {
     cocktailQuizItem.innerHTML = "";
   }
@@ -95,8 +95,6 @@ function showQuiz() {
 }
 
 function showCocktailInfo() {
-  const cocktailQuizItem = document.querySelector("#cocktail-quiz");
-
   cocktailQuizItem.innerHTML = `
     <div class="cocktail-quiz__header row">
       <div class="cocktail-quiz__cocktail-image">

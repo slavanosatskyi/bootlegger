@@ -1,7 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap");
 .row {
   width: 100%;
-  max-width: 1240px;
   padding: 0 10px;
   display: flex;
   margin: 0 auto;
@@ -214,7 +213,7 @@ body {
 }
 
 .container {
-  max-width: 1440px;
+  max-width: 1240px;
   margin: 0 auto;
 }
 
@@ -225,6 +224,7 @@ body {
   background: #00cecb;
   height: 50px;
   align-items: center;
+  max-width: 1240px;
 }
 @media screen and (min-width: 768px) {
   .header {
@@ -240,6 +240,12 @@ body {
   align-items: center;
   font-size: 2rem;
   padding-right: 5px;
+}
+.header__text {
+  font-size: 2rem;
+  text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: 0.2rem;
 }
 .header__menu {
   position: absolute;
@@ -324,8 +330,13 @@ body {
   color: #2d3436;
   font-size: 1.5rem;
 }
-.header__link:hover {
-  color: #636e72;
+@media screen and (min-width: 768px) {
+  .header__link {
+    transition: color 0.2s;
+  }
+  .header__link:hover {
+    color: #636e72;
+  }
 }
 @media screen and (min-width: 768px) {
   .header__link {
@@ -342,15 +353,55 @@ main {
   }
 }
 
-main {
-  margin: auto;
+.cocktail-quiz__panel {
+  width: 75%;
+  margin: 0 auto;
+  padding-top: 15px;
   display: flex;
+  justify-content: space-evenly;
+}
+.cocktail-quiz__logo {
+  display: inline-block;
+  width: 50%;
+}
+.cocktail-quiz__logo img {
+  width: 100%;
+  height: 100%;
+}
+.cocktail-quiz__call-to-action {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
 }
-
-.cocktail-quiz {
-  display: flex;
-  flex-direction: column;
+.cocktail-quiz__text {
+  padding: 0 50px;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 200;
+  text-align: center;
+}
+.cocktail-quiz__start {
+  width: 75%;
+  background: #fab1a0;
+  letter-spacing: 0.4rem;
+  font-size: 1.8rem;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  font-family: "Oswald", sans-serif;
+  outline: none;
+}
+@media screen and (min-width: 768px) {
+  .cocktail-quiz__start {
+    transition: background-color 0.2s;
+  }
+  .cocktail-quiz__start:hover {
+    background-color: #f9a490;
+    cursor: pointer;
+  }
 }
 .cocktail-quiz__header {
   display: flex;
