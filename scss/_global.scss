@@ -24,8 +24,7 @@ $correct-ingredient: #00b894;
 }
 
 html,
-body,
-.container {
+body {
   height: 100vh;
 }
 
@@ -35,73 +34,144 @@ body {
   color: $text-color;
 }
 
-.link {
-  text-decoration: none;
-  color: $text-color;
-  font-size: 1.5rem;
-  &:hover {
-    color: $link-color;
-  }
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
 }
 
 ///////////////////////
 // HEADER
 ///////////////////////
-header {
+.header {
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%);
   background: $secondary-color;
-  position: relative;
+  height: 50px;
+  align-items: center;
 
-  .nav {
+  @include breakpoint(md) {
+    height: 70px;
+  }
+
+  &__logo {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    list-style: none;
-    background: $secondary-color;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    padding-right: 5px;
+  }
+
+  &__menu {
     position: absolute;
-    top: 100%;
     right: 0;
-    width: 25%;
-    height: 80px;
+    top: 50px;
+    background-color: $secondary-color;
+    width: 80px;
+    height: 0px;
+    transition: height 0.3s;
     overflow: hidden;
-    transition: height 0.2s;
 
-    &_hidden {
-      height: 0;
-    }
-
-    li {
-      padding: 0 10px;
+    &.active {
+      height: 80px;
     }
 
     @include breakpoint(md) {
-      position: relative;
-      flex-direction: row;
-      justify-content: flex-end;
-      align-items: center;
+      position: static;
+      width: auto;
       height: auto;
     }
   }
 
-  .menu {
+  &__burger {
+    position: relative;
+    width: 20px;
+    height: 20px;
+
+    @include breakpoint(md) {
+      display: none;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 5px;
+      height: 2px;
+      width: 20px;
+      background-color: $text-color;
+      transition: all 0.3s;
+    }
+
+    &:before {
+      content: '';
+      top: 15px;
+      position: absolute;
+      height: 2px;
+      width: 20px;
+      background-color: $text-color;
+      transition: all 0.3s;
+    }
+
+    span {
+      display: block;
+      position: absolute;
+      top: 10px;
+      height: 2px;
+      width: 20px;
+      background-color: $text-color;
+    }
+
+    &.active:after {
+      transform: rotate(45deg);
+      top: 10px;
+    }
+
+    &.active:before {
+      transform: rotate(-45deg);
+      top: 10px;
+    }
+    
+    &.active span {
+      transform: scale(0);
+    }
+  }
+
+  &__links-list {
+    list-style: none;
     display: flex;
+    flex-direction: column;
     align-items: center;
+
+    @include breakpoint(md) {
+      flex-direction: row;
+    }
+  }
+
+  &__link {
+    text-decoration: none;
     color: $text-color;
     font-size: 1.5rem;
     &:hover {
       color: $link-color;
     }
+
     @include breakpoint(md) {
-      display: none;
+      margin-right: 20px;
     }
   }
 }
 
-.logo {
-  display: flex;
-  &_icon {
-    display: flex;
-    align-items: center;
-    font-size: 2rem;
-    padding-right: 5px;
+///////////////////////
+// MAIN
+///////////////////////
+main {
+  padding-top: 50px;
+
+  @include breakpoint(md) {
+    padding-top: 70px;
   }
 }

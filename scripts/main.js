@@ -8,15 +8,13 @@ const SLOTS_FOR_INGREDIENTS = 12;
 // VARIABLES
 //////////////////////////////
 const getRandomCocktailBtn = document.querySelector("#get-random-cocktail");
-const menuBtn = document.querySelector("#menu-btn");
+const burgerBtn = document.querySelector(".header__burger");
 const mainContainer = document.querySelector("main");
 
 const Quiz = {
   cocktail: null,
   selectedIngredients: [],
   isQuizReady: function () {
-    console.log(this.cocktail.ingredients.length);
-    console.log(this.selectedIngredients.length);
     return this.cocktail.ingredients.length === this.selectedIngredients.length 
   },
   
@@ -33,8 +31,9 @@ getRandomCocktailBtn.addEventListener("click", (e) => {
   generateCocktailQuiz();
 });
 
-menuBtn.addEventListener("click", (e) => {
-  document.querySelector(".nav").classList.toggle("nav_hidden");
+burgerBtn.addEventListener("click", (e) => {
+  document.querySelector(".header__menu").classList.toggle("active");
+  document.querySelector(".header__burger").classList.toggle("active");
 });
 
 mainContainer.addEventListener("click", (e) => {
@@ -91,12 +90,6 @@ function resetQuiz() {
 }
 
 function showQuiz() {
-  if (!document.querySelector("#cocktail-quiz")) {
-    const cocktailQuizItem = document.createElement("div");
-    cocktailQuizItem.id = "cocktail-quiz";
-    cocktailQuizItem.classList.add("cocktail-quiz");
-    document.querySelector("main").append(cocktailQuizItem);
-  }
   showCocktailInfo();
   showCocktailIngredients();
 }

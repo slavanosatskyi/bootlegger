@@ -9,14 +9,11 @@ main {
 .cocktail-quiz {
     display: flex;
     flex-direction: column;
-    padding-top: 20px;
-
     &__header {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         background: $primary-color;
-        position: relative;
         height: 220px;  
     }
 
