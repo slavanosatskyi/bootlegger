@@ -24,11 +24,6 @@ $correct-ingredient: #00b894;
   margin: 0;
 }
 
-html,
-body {
-  height: 100vh;
-}
-
 body {
   font-size: 16px;
   font-family: $font-stack;
@@ -38,6 +33,7 @@ body {
 .container {
   max-width: 1240px;
   margin: 0 auto;
+  position: relative;
 }
 
 ///////////////////////
@@ -64,15 +60,23 @@ body {
   &__icon {
     display: flex;
     align-items: center;
-    font-size: 2rem;
-    padding-right: 5px;
+    font-size: 1.5rem;
+    margin-right: 5px;
+
+    @include breakpoint(md) {
+      font-size: 2rem;
+    }
   }
 
   &__text {
-    font-size: 2rem;
+    font-size: 1.5rem;
     text-transform: uppercase;
     font-weight: 400;
     letter-spacing: 0.2rem;
+
+    @include breakpoint(md) {
+      font-size: 2rem;
+    }
   }
 
   &__menu {
@@ -87,6 +91,10 @@ body {
 
     &.active {
       height: 80px;
+
+      @include breakpoint(md) {
+        height: auto;
+      }
     }
 
     @include breakpoint(md) {
@@ -106,7 +114,7 @@ body {
     }
 
     &:after {
-      content: '';
+      content: "";
       position: absolute;
       top: 5px;
       height: 2px;
@@ -116,7 +124,7 @@ body {
     }
 
     &:before {
-      content: '';
+      content: "";
       top: 15px;
       position: absolute;
       height: 2px;
@@ -143,7 +151,7 @@ body {
       transform: rotate(-45deg);
       top: 10px;
     }
-    
+
     &.active span {
       transform: scale(0);
     }
@@ -171,7 +179,6 @@ body {
         color: $text-color-selected;
       }
     }
-   
 
     @include breakpoint(md) {
       margin-right: 20px;

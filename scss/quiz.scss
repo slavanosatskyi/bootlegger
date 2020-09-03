@@ -1,5 +1,12 @@
 @import "global";
 
+.button {
+    border-radius: 5px;
+    border: 1px solid $secondary-color;
+    box-shadow: 2px 2px 10px $text-color;
+    text-align: center;
+}
+
 .cocktail-quiz {
     &__panel {
         width: 75%;
@@ -11,30 +18,44 @@
     }
 
     &__logo {
-        display: inline-block;
-        width: 50%;
+        display: none;
 
-        img {
-            width: 100%;
-            height: 100%;
+        @include breakpoint(md) {
+            display: inline-block;
+            width: 50%;
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
         }
     }
 
     &__call-to-action {
-        width: 50%;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        border: 1px solid $primary-color;
+        border-radius: 5px;
+        padding: 10px;
+        @include breakpoint(md) {
+            width: 50%;
+            border: none;
+            padding: 0;
+        }
     }
 
     &__text {
         padding: 0 50px;
         margin-bottom: 20px;
-        font-size: 1.5rem;
-        line-height: 2rem;
         font-weight: 200;
         text-align: center;
+
+        @include breakpoint(md) {
+            font-size: 1.5rem;
+            line-height: 2rem;
+        }
     }
 
     &__start {
@@ -58,35 +79,70 @@
         }
     }
 
-    &__header {
+    &__body {
+        width: 100%;
         display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        background: $primary-color;
-        height: 220px;
+    }
+
+    &__task {
+        width: 25%;
+        padding: 20px 10px;
+        background-color: $primary-color;
     }
 
     &__title {
-        align-self: center;
+        font-weight: 400;
+        text-align: center;
+        margin-bottom: 40px;
     }
 
-    &__ingredients-count {
-        align-self: flex-end;
-        font-size: 1.5rem;
-    }
     &__cocktail-image {
-        overflow: hidden;
         border-radius: 50%;
-        height: 200px;
+        border: 1px solid $secondary-color;
+        overflow: hidden;
         width: 200px;
-        border: 3px solid $text-color;
-        position: absolute;
-        top: 10px;
-        left: 10px;
+        height: 200px;
+        margin: 0 auto 20px auto;
+
         img {
-            height: 100%;
+            display: block;
             width: 100%;
+            height: auto;
         }
+    }
+
+    &__controls {
+        position: fixed;
+        bottom: 20px;
+        display: flex;
+        padding-right: 20px;
+        width: 25%;
+        max-width: 310px;
+        justify-content: space-between;
+    }
+
+    &__ingredients-count,
+    &__restart {
+        width: 40px;
+        height: 40px;
+        padding: 5px 0;
+        transition: background-color 0.3s;
+    }
+
+    &__next {
+        padding: 5px 0;
+        width: 80px;
+        font-size: 1.2rem;
+    }
+
+    &__restart:hover, 
+    &__next:hover {
+        cursor: pointer;
+        background-color: $primary-color-selected;
+    }
+
+    &__ingredients {
+        width: 75%;
     }
 }
 
@@ -133,4 +189,18 @@
 
 .ingredient-name {
     text-align: center;
+}
+
+.shake {
+    animation: 0.2s linear 4 alternate shake; 
+}
+
+@keyframes shake {
+    from {
+        transform: rotate(-45deg);
+    }
+
+    to {
+        transform: rotate(45deg);
+    }
 }

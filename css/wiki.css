@@ -201,11 +201,6 @@
   margin: 0;
 }
 
-html,
-body {
-  height: 100vh;
-}
-
 body {
   font-size: 16px;
   font-family: "Oswald", sans-serif;
@@ -215,6 +210,7 @@ body {
 .container {
   max-width: 1240px;
   margin: 0 auto;
+  position: relative;
 }
 
 .header {
@@ -238,14 +234,24 @@ body {
 .header__icon {
   display: flex;
   align-items: center;
-  font-size: 2rem;
-  padding-right: 5px;
+  font-size: 1.5rem;
+  margin-right: 5px;
+}
+@media screen and (min-width: 768px) {
+  .header__icon {
+    font-size: 2rem;
+  }
 }
 .header__text {
-  font-size: 2rem;
+  font-size: 1.5rem;
   text-transform: uppercase;
   font-weight: 400;
   letter-spacing: 0.2rem;
+}
+@media screen and (min-width: 768px) {
+  .header__text {
+    font-size: 2rem;
+  }
 }
 .header__menu {
   position: absolute;
@@ -259,6 +265,11 @@ body {
 }
 .header__menu.active {
   height: 80px;
+}
+@media screen and (min-width: 768px) {
+  .header__menu.active {
+    height: auto;
+  }
 }
 @media screen and (min-width: 768px) {
   .header__menu {

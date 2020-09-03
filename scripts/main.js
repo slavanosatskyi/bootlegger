@@ -7,23 +7,22 @@ const SLOTS_FOR_INGREDIENTS = 12;
 //////////////////////////////
 // VARIABLES
 //////////////////////////////
-const getRandomCocktailBtn = document.querySelector("#get-random-cocktail");
 const burgerBtn = document.querySelector(".header__burger");
+const getRandomCocktailBtn = document.querySelector(".cocktail-quiz__start");
 const cocktailQuizItem = document.querySelector(".cocktail-quiz");
-
 
 const Quiz = {
   cocktail: null,
   selectedIngredients: [],
   isQuizReady: function () {
-    return this.cocktail.ingredients.length === this.selectedIngredients.length 
+    return this.cocktail.ingredients.length === this.selectedIngredients.length;
   },
-  
-  reset: function() {
+
+  reset: function () {
     this.cocktail = null;
     this.selectedIngredients = [];
-  }
-}
+  },
+};
 
 //////////////////////////////
 // EVENTS
@@ -41,6 +40,23 @@ cocktailQuizItem.addEventListener("click", (e) => {
   const ingredientCardItem = e.target.closest(".ingredient-card");
   if (ingredientCardItem && !Quiz.isQuizReady()) {
     selectIngredient(ingredientCardItem);
+
+    const ingredientsCountItem = document.querySelector(".cocktail-quiz__ingredients-count");
+    if (ingredientsCountItem) {
+      ingredientsCountItem.classList.remove("shake");
+      ingredientsCountItem.classList.add("shake");
+    }
+  }
+
+  const nextTaskButton = e.target.closest(".cocktail-quiz__next");
+  if (nextTaskButton) {
+    generateCocktailQuiz();
+  }
+});
+
+cocktailQuizItem.addEventListener("animationend", (e) => {
+  if (e.target.classList.contains("shake")) {
+    e.target.classList.remove("shake");
   }
 });
 
@@ -57,12 +73,15 @@ async function generateCocktailQuiz() {
 function selectIngredient(ingredientCardItem) {
   ingredientCardItem.classList.toggle("ingredient-card_selected");
 
-  const ingredient = ingredientCardItem.querySelector(".ingredient-name").innerText;
+  const ingredient = ingredientCardItem.querySelector(".ingredient-name")
+    .innerText;
   updateSelectedIngredients(ingredient);
 
   if (Quiz.isQuizReady()) {
-    const ingredientCardItems = document.querySelectorAll(".ingredient-card_selected");
-    ingredientCardItems.forEach(card => {
+    const ingredientCardItems = document.querySelectorAll(
+      ".ingredient-card_selected"
+    );
+    ingredientCardItems.forEach((card) => {
       const ingredientNameItem = card.querySelector(".ingredient-name");
       if (!ingredientNameItem) {
         return;
@@ -90,19 +109,29 @@ function resetQuiz() {
 }
 
 function showQuiz() {
-  showCocktailInfo();
+  cocktailQuizItem.innerHTML = `
+    <div class="cocktail-quiz__body">
+      <div class="cocktail-quiz__task"></div>
+      <div class="cocktail-quiz__ingredients"></div>
+    </div>`;
+  showQuizTask();
   showCocktailIngredients();
 }
 
-function showCocktailInfo() {
-  cocktailQuizItem.innerHTML = `
-    <div class="cocktail-quiz__header row">
-      <div class="cocktail-quiz__cocktail-image">
-        <img src="${Quiz.cocktail.imgURL}" alt="" />
+function showQuizTask() {
+  const quizTaskItem = document.querySelector(".cocktail-quiz__task");
+  quizTaskItem.innerHTML = `
+    <h2 class="cocktail-quiz__title">${Quiz.cocktail.name}</h2>
+    <div class="cocktail-quiz__cocktail-image">
+      <img src="${Quiz.cocktail.imgURL}" alt="" />
+    </div> 
+    <div class="cocktail-quiz__controls">
+      <div class="cocktail-quiz__next button">NEXT</div>
+      <div class="cocktail-quiz__restart button"><i class="fas fa-redo"></i></div>
+      <div class="cocktail-quiz__ingredients-count button">
+        <span class="cocktail-quiz__ingredients-selected-count">0</span>/<span class="cocktail-quiz__ingredients-total-count">${Quiz.cocktail.ingredients.length}</span>
       </div>
-      <h2 class="cocktail-quiz__title">${Quiz.cocktail.name}</h2>
-      <div class="cocktail-quiz__ingredients-count"><span class="cocktail-quiz__ingredients-selected-count">0</span>/<span class="cocktail-quiz__ingredients-total-count">${Quiz.cocktail.ingredients.length}</span></div>
-    </div>
+    </div>  
   `;
 }
 
@@ -116,7 +145,7 @@ async function showCocktailIngredients() {
   cocktailIngredientsItem.classList.add("row");
   for (const ingredient of ingredients) {
     cocktailIngredientsItem.innerHTML += `
-    <li class="col-6 col-md-2">
+    <li class="col-6 col-md-3">
       <div class="ingredient-card">
         <div class="ingredient-img">
           <img src="${CocktailDBAPI.getIngredientImg(ingredient)}" alt="" />
@@ -125,7 +154,9 @@ async function showCocktailIngredients() {
       </div>
     </li>`;
   }
-  document.querySelector("#cocktail-quiz").append(cocktailIngredientsItem);
+  document
+    .querySelector(".cocktail-quiz__ingredients")
+    .append(cocktailIngredientsItem);
 }
 
 async function addRandomIngredients(intialIngredients) {
@@ -144,12 +175,16 @@ async function addRandomIngredients(intialIngredients) {
 
 function updateSelectedIngredients(ingredient) {
   if (Quiz.selectedIngredients.includes(ingredient)) {
-    Quiz.selectedIngredients = Quiz.selectedIngredients.filter(value => value !== ingredient);
+    Quiz.selectedIngredients = Quiz.selectedIngredients.filter(
+      (value) => value !== ingredient
+    );
   } else {
     Quiz.selectedIngredients.push(ingredient);
   }
 
-  document.querySelector(".cocktail-quiz__ingredients-selected-count").innerText = Quiz.selectedIngredients.length;
+  document.querySelector(
+    ".cocktail-quiz__ingredients-selected-count"
+  ).innerText = Quiz.selectedIngredients.length;
 }
 
 function shuffle(array) {
