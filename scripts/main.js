@@ -111,6 +111,14 @@ function resetQuiz() {
 
 function showQuiz() {
   cocktailQuizItem.innerHTML = `
+    <button class="task-description-button"><i class="fas fa-cocktail"></i></button>
+    <div class="task-description__controls">
+      <button class="task-description__ingredients-count">
+        <span class="cocktail-quiz__ingredients-selected-count">0</span>/<span
+              class="cocktail-quiz__ingredients-total-count">${Quiz.cocktail.ingredients.length}</span>
+      </button>
+      <button class="task-description__next-cocktail">NEXT</button>
+    </div>
     <div class="cocktail-quiz__body">
       <div class="task-description cocktail-quiz__task-description"></div>
       <div class="cocktail-quiz__ingredients-list"></div>
@@ -126,12 +134,6 @@ function showQuizTask() {
     <div class="task-description__cocktail-image">
       <img src="${Quiz.cocktail.imgURL}" alt="" />
     </div> 
-    <div class="task-description__controls">
-      <button class="task-description__ingredients-count">
-        <span class="cocktail-quiz__ingredients-selected-count">0</span>/<span class="cocktail-quiz__ingredients-total-count">${Quiz.cocktail.ingredients.length}</span>
-      </button>
-      <button class="task-description__next-cocktail">NEXT</button>
-    </div>  
   `;
 }
 

@@ -448,34 +448,60 @@ main {
   }
 }
 
-.task-description {
-  width: 100%;
-  position: absolute;
-  left: -100%;
-  background-color: #fab1a0;
-}
-.task-description:after {
-  content: ">>";
-  position: absolute;
-  right: -50px;
-  width: 50px;
-  height: 50px;
-  background-color: red;
+.task-description-button {
+  position: fixed;
+  top: 55px;
+  left: 20px;
+  letter-spacing: normal;
+  border-radius: 50%;
+  font-size: 1rem;
+  width: 38px;
+  height: 38px;
 }
 @media screen and (min-width: 768px) {
-  .task-description:after {
+  .task-description-button {
     display: none;
   }
 }
+
+.task-description {
+  bottom: 0px;
+  top: 50px;
+  width: 100%;
+  position: fixed;
+  background-color: #fab1a0;
+  transform-origin: 50px 20px;
+  animation: 1s linear hide;
+  animation-delay: 3s;
+  animation-fill-mode: forwards;
+}
 @media screen and (min-width: 768px) {
   .task-description {
+    animation: none;
     position: static;
+  }
+}
+@keyframes hide {
+  0% {
+    top: 50px;
+    transform: scale(1);
+    opacity: 100%;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0%;
   }
 }
 .task-description__title {
   font-weight: 400;
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
+}
+@media screen and (min-width: 768px) {
+  .task-description__title {
+    animation: none;
+    margin-bottom: 40px;
+  }
 }
 .task-description__cocktail-image {
   border-radius: 50%;
@@ -503,8 +529,6 @@ main {
 @media screen and (min-width: 768px) {
   .task-description__controls {
     left: auto;
-    justify-content: space-around;
-    padding: 0 25px 0 0px;
     width: 25%;
     max-width: 310px;
   }
@@ -565,10 +589,6 @@ main {
   padding: 5px 5px;
 }
 
-.ingredient-img {
-  filter: grayscale(0%);
-  transition: filter 1s;
-}
 .ingredient-img img {
   width: 100%;
   height: 100%;
