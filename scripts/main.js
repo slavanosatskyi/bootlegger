@@ -9,7 +9,7 @@ const SLOTS_FOR_INGREDIENTS = 12;
 //////////////////////////////
 const burgerBtn = document.querySelector(".header__burger");
 const cocktailQuizItem = document.querySelector(".cocktail-quiz");
-const getRandomCocktailBtn = document.querySelector(".cocktail-quiz__start");
+const startQuizBtn = document.querySelector("#startQuiz");
 
 const Quiz = {
   cocktail: null,
@@ -27,7 +27,7 @@ const Quiz = {
 //////////////////////////////
 // EVENTS
 //////////////////////////////
-getRandomCocktailBtn.addEventListener("click", (e) => {
+startQuizBtn.addEventListener("click", (e) => {
   generateCocktailQuiz();
 });
 
@@ -41,14 +41,14 @@ cocktailQuizItem.addEventListener("click", (e) => {
 
   if (ingredientCardItem && !Quiz.isQuizReady()) {
     selectIngredient(ingredientCardItem);
-    const ingredientsCountItem = document.querySelector(".cocktail-quiz__ingredients-count");
+    const ingredientsCountItem = document.querySelector(".task-description__ingredients-count");
     if (ingredientsCountItem) {
       ingredientsCountItem.classList.remove("shake");
       ingredientsCountItem.classList.add("shake");
     }
   }
 
-  const nextTaskButton = e.target.closest(".cocktail-quiz__next");
+  const nextTaskButton = e.target.closest(".task-description__next-cocktail");
   if (nextTaskButton) {
     generateCocktailQuiz();
   }
@@ -112,25 +112,25 @@ function resetQuiz() {
 function showQuiz() {
   cocktailQuizItem.innerHTML = `
     <div class="cocktail-quiz__body">
-      <div class="cocktail-quiz__task"></div>
-      <div class="cocktail-quiz__ingredients"></div>
+      <div class="task-description cocktail-quiz__task-description"></div>
+      <div class="cocktail-quiz__ingredients-list"></div>
     </div>`;
   showQuizTask();
   showCocktailIngredients();
 }
 
 function showQuizTask() {
-  const quizTaskItem = document.querySelector(".cocktail-quiz__task");
+  const quizTaskItem = document.querySelector(".cocktail-quiz__task-description");
   quizTaskItem.innerHTML = `
-    <h2 class="cocktail-quiz__title">${Quiz.cocktail.name}</h2>
-    <div class="cocktail-quiz__cocktail-image">
+    <h2 class="task-description__title">${Quiz.cocktail.name}</h2>
+    <div class="task-description__cocktail-image">
       <img src="${Quiz.cocktail.imgURL}" alt="" />
     </div> 
-    <div class="cocktail-quiz__controls">
-      <div class="cocktail-quiz__next button">NEXT</div>
-      <div class="cocktail-quiz__ingredients-count button">
+    <div class="task-description__controls">
+      <button class="task-description__ingredients-count">
         <span class="cocktail-quiz__ingredients-selected-count">0</span>/<span class="cocktail-quiz__ingredients-total-count">${Quiz.cocktail.ingredients.length}</span>
-      </div>
+      </button>
+      <button class="task-description__next-cocktail">NEXT</button>
     </div>  
   `;
 }
@@ -155,7 +155,7 @@ async function showCocktailIngredients() {
     </li>`;
   }
   document
-    .querySelector(".cocktail-quiz__ingredients")
+    .querySelector(".cocktail-quiz__ingredients-list")
     .append(cocktailIngredientsItem);
 }
 

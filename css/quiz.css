@@ -213,6 +213,39 @@ body {
   position: relative;
 }
 
+button {
+  border-radius: 5px;
+  border: 1px solid #00cecb;
+  box-shadow: 2px 2px 10px #2d3436;
+  text-align: center;
+  background: #fab1a0;
+  letter-spacing: 0.4rem;
+  font-size: 1.8rem;
+  font-family: "Oswald", sans-serif;
+  outline: none;
+}
+@media screen and (min-width: 768px) {
+  button {
+    transition: background-color 0.2s;
+  }
+  button:hover {
+    background-color: #f9a490;
+    cursor: pointer;
+  }
+}
+
+.shake {
+  animation: 0.2s linear 4 alternate shake;
+}
+
+@keyframes shake {
+  from {
+    transform: rotate(-45deg);
+  }
+  to {
+    transform: rotate(45deg);
+  }
+}
 .header {
   position: fixed;
   z-index: 99;
@@ -365,34 +398,24 @@ main {
   }
 }
 
-.button {
-  border-radius: 5px;
-  border: 1px solid #00cecb;
-  box-shadow: 2px 2px 10px #2d3436;
-  text-align: center;
-}
-
-.cocktail-quiz__panel {
-  width: 75%;
-  margin: 0 auto;
-  padding-top: 15px;
+.panel {
   display: flex;
   justify-content: space-evenly;
 }
-.cocktail-quiz__logo {
+.panel__logo {
   display: none;
 }
 @media screen and (min-width: 768px) {
-  .cocktail-quiz__logo {
+  .panel__logo {
     display: inline-block;
     width: 50%;
   }
-  .cocktail-quiz__logo img {
+  .panel__logo img {
     width: 100%;
     height: 100%;
   }
 }
-.cocktail-quiz__call-to-action {
+.panel__call-to-action {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -402,97 +425,135 @@ main {
   padding: 10px;
 }
 @media screen and (min-width: 768px) {
-  .cocktail-quiz__call-to-action {
+  .panel__call-to-action {
     width: 50%;
     border: none;
     padding: 0;
   }
 }
-.cocktail-quiz__text {
+.panel__button {
+  width: 75%;
+  padding: 10px 20px;
+}
+.panel__text {
   padding: 0 50px;
   margin-bottom: 20px;
   font-weight: 200;
   text-align: center;
 }
 @media screen and (min-width: 768px) {
-  .cocktail-quiz__text {
+  .panel__text {
     font-size: 1.5rem;
     line-height: 2rem;
   }
 }
-.cocktail-quiz__start {
-  width: 75%;
-  background: #fab1a0;
-  letter-spacing: 0.4rem;
-  font-size: 1.8rem;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: none;
-  font-family: "Oswald", sans-serif;
-  outline: none;
-}
-@media screen and (min-width: 768px) {
-  .cocktail-quiz__start {
-    transition: background-color 0.2s;
-  }
-  .cocktail-quiz__start:hover {
-    background-color: #f9a490;
-    cursor: pointer;
-  }
-}
-.cocktail-quiz__body {
+
+.task-description {
   width: 100%;
-  display: flex;
-}
-.cocktail-quiz__task {
-  width: 25%;
-  padding: 20px 10px;
+  position: absolute;
+  left: -100%;
   background-color: #fab1a0;
 }
-.cocktail-quiz__title {
+.task-description:after {
+  content: ">>";
+  position: absolute;
+  right: -50px;
+  width: 50px;
+  height: 50px;
+  background-color: red;
+}
+@media screen and (min-width: 768px) {
+  .task-description:after {
+    display: none;
+  }
+}
+@media screen and (min-width: 768px) {
+  .task-description {
+    position: static;
+  }
+}
+.task-description__title {
   font-weight: 400;
   text-align: center;
   margin-bottom: 40px;
 }
-.cocktail-quiz__cocktail-image {
+.task-description__cocktail-image {
   border-radius: 50%;
   border: 1px solid #00cecb;
   overflow: hidden;
-  width: 200px;
-  height: 200px;
+  max-width: 200px;
+  max-height: 200px;
   margin: 0 auto 20px auto;
 }
-.cocktail-quiz__cocktail-image img {
+.task-description__cocktail-image img {
   display: block;
   width: 100%;
   height: auto;
 }
-.cocktail-quiz__controls {
+.task-description__controls {
   position: fixed;
   bottom: 20px;
+  left: 0px;
+  padding: 0 20px;
   display: flex;
-  padding-right: 20px;
-  width: 25%;
-  max-width: 310px;
-  justify-content: space-around;
+  justify-content: space-between;
+  width: 100%;
+  z-index: 3;
 }
-.cocktail-quiz__ingredients-count, .cocktail-quiz__answer {
-  width: 40px;
-  height: 40px;
-  padding: 5px 0;
-  transition: background-color 0.3s;
+@media screen and (min-width: 768px) {
+  .task-description__controls {
+    left: auto;
+    justify-content: space-around;
+    padding: 0 25px 0 0px;
+    width: 25%;
+    max-width: 310px;
+  }
 }
-.cocktail-quiz__next {
-  padding: 5px 0;
-  width: 80px;
-  font-size: 1.2rem;
+.task-description__ingredients-count:hover {
+  cursor: default;
+  background-color: #fab1a0;
 }
-.cocktail-quiz__answer:hover, .cocktail-quiz__next:hover {
-  cursor: pointer;
-  background-color: #f9a490;
+.task-description__ingredients-count {
+  border-radius: 50%;
+  padding: 7px;
 }
-.cocktail-quiz__ingredients {
+@media screen and (min-width: 768px) {
+  .task-description__ingredients-count {
+    border-radius: 5px;
+  }
+}
+.task-description__next-cocktail {
+  padding: 3px 7px;
+}
+.task-description__ingredients-count, .task-description__next-cocktail {
+  font-size: 1rem;
+  letter-spacing: normal;
+}
+@media screen and (min-width: 768px) {
+  .task-description__ingredients-count, .task-description__next-cocktail {
+    padding: 10px 15px;
+  }
+}
+
+.cocktail-quiz__body {
+  width: 100%;
+  display: flex;
+}
+.cocktail-quiz__panel {
   width: 75%;
+  margin: 0 auto;
+  padding-top: 15px;
+}
+@media screen and (min-width: 768px) {
+  .cocktail-quiz__task-description {
+    width: 25%;
+    padding: 20px 10px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .cocktail-quiz__ingredients-list {
+    width: 75%;
+  }
 }
 
 .ingredients-list {
@@ -539,19 +600,6 @@ main {
 
 .ingredient-name {
   text-align: center;
-}
-
-.shake {
-  animation: 0.2s linear 4 alternate shake;
-}
-
-@keyframes shake {
-  from {
-    transform: rotate(-45deg);
-  }
-  to {
-    transform: rotate(45deg);
-  }
 }
 
 /*# sourceMappingURL=quiz.css.map */
