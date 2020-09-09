@@ -7,9 +7,10 @@ const SLOTS_FOR_INGREDIENTS = 12;
 //////////////////////////////
 // VARIABLES
 //////////////////////////////
-const burgerBtn = document.querySelector(".header__burger");
-const cocktailQuizItem = document.querySelector(".cocktail-quiz");
+const burgerBtn = document.querySelector("#burger");
 const startQuizBtn = document.querySelector("#startQuiz");
+const cocktailQuizItem = document.querySelector("#cocktail-quiz");
+let allAvaliableIngredients = [];
 
 const Quiz = {
   cocktail: null,
@@ -28,42 +29,40 @@ const Quiz = {
 // EVENTS
 //////////////////////////////
 startQuizBtn.addEventListener("click", (e) => {
-  generateCocktailQuiz();
+  CocktailDBAPI.getAllIngredients().then(result => {
+    allAvaliableIngredients = result;
+    generateCocktailQuiz();
+  });
 });
 
 burgerBtn.addEventListener("click", (e) => {
-  document.querySelector(".header__menu").classList.toggle("active");
-  document.querySelector(".header__burger").classList.toggle("active");
+  toggleBurgerMenu();
 });
 
 cocktailQuizItem.addEventListener("click", (e) => {
   const ingredientCardItem = e.target.closest(".ingredient-card");
-
   if (ingredientCardItem && !Quiz.isQuizReady()) {
     selectIngredient(ingredientCardItem);
-    const ingredientsCountItem = document.querySelector(".task-description__ingredients-count");
+
+    const ingredientsCountItem = document.querySelector("#ingredients-count");
     if (ingredientsCountItem) {
-      ingredientsCountItem.classList.remove("shake");
-      ingredientsCountItem.classList.add("shake");
+      animateElement(ingredientsCountItem);
     }
   }
 
-  const nextTaskButton = e.target.closest(".task-description__next-cocktail");
+  const nextTaskButton = e.target.closest("#next-cocktail");
   if (nextTaskButton) {
     generateCocktailQuiz();
   }
 
-  const showTaskDescriptionBtn = document.getElementById("show-task-description");
-  if (showTaskDescriptionBtn && e.target.closest("#show-task-description") === showTaskDescriptionBtn) {
-    let elm = document.querySelector(".task-description");
-    let newone = elm.cloneNode(true);
-    elm.parentNode.replaceChild(newone, elm);
-  }
-});
-
-cocktailQuizItem.addEventListener("animationend", (e) => {
-  if (e.target.classList.contains("shake")) {
-    e.target.classList.remove("shake");
+  const showTaskDescriptionBtn = document.querySelector(
+    "#show-task-description"
+  );
+  if (
+    showTaskDescriptionBtn &&
+    e.target.closest("#show-task-description") === showTaskDescriptionBtn
+  ) {
+    animateElement(document.querySelector(".task-description"));
   }
 });
 
@@ -80,7 +79,7 @@ async function generateCocktailQuiz() {
 function selectIngredient(ingredientCardItem) {
   ingredientCardItem.classList.toggle("ingredient-card_selected");
 
-  const ingredient = ingredientCardItem.querySelector(".ingredient-name")
+  const ingredient = ingredientCardItem.querySelector(".ingredient-card__name")
     .innerText;
   updateSelectedIngredients(ingredient);
 
@@ -89,11 +88,10 @@ function selectIngredient(ingredientCardItem) {
       ".ingredient-card_selected"
     );
     ingredientCardItems.forEach((card) => {
-      const ingredientNameItem = card.querySelector(".ingredient-name");
+      const ingredientNameItem = card.querySelector(".ingredient-card__name");
       if (!ingredientNameItem) {
         return;
       }
-      console.log(`Cocktaile ingredients: ${Quiz.cocktail.ingredients}`);
 
       if (Quiz.cocktail.ingredients.includes(ingredientNameItem.innerText)) {
         card.classList.add("ingredient-card_correct");
@@ -103,6 +101,16 @@ function selectIngredient(ingredientCardItem) {
     });
     showAnswer();
   }
+}
+
+function toggleBurgerMenu() {
+  document.querySelector(".header__menu").classList.toggle("active");
+  document.querySelector(".header__burger").classList.toggle("active");
+}
+
+function animateElement(elem) {
+  let newone = elem.cloneNode(true);
+  elem.parentNode.replaceChild(newone, elem);
 }
 
 //////////////////////////////
@@ -120,22 +128,23 @@ function showQuiz() {
   cocktailQuizItem.innerHTML = `
     <button class="task-description-button" id="show-task-description"><i class="fas fa-cocktail"></i></button>
     <div class="task-description__controls">
-      <button class="task-description__ingredients-count">
-        <span class="cocktail-quiz__ingredients-selected-count">0</span>/<span
-              class="cocktail-quiz__ingredients-total-count">${Quiz.cocktail.ingredients.length}</span>
+      <button class="task-description__ingredients-count" id="ingredients-count">
+        <span id="selected-ingredients-count">0</span>/<span id="ingredients-total-count">${Quiz.cocktail.ingredients.length}</span>
       </button>
-      <button class="task-description__next-cocktail">NEXT</button>
+      <button class="task-description__next-cocktail" id="next-cocktail">NEXT</button>
     </div>
     <div class="cocktail-quiz__body">
-      <div class="task-description cocktail-quiz__task-description"></div>
       <div class="cocktail-quiz__ingredients-list"></div>
+      <div class="task-description cocktail-quiz__task-description"></div>
     </div>`;
-  showQuizTask();
   showCocktailIngredients();
+  showQuizTask();
 }
 
 function showQuizTask() {
-  const quizTaskItem = document.querySelector(".cocktail-quiz__task-description");
+  const quizTaskItem = document.querySelector(
+    ".cocktail-quiz__task-description"
+  );
   quizTaskItem.innerHTML = `
     <h2 class="task-description__title">${Quiz.cocktail.name}</h2>
     <div class="task-description__cocktail-image">
@@ -146,7 +155,7 @@ function showQuizTask() {
 
 async function showCocktailIngredients() {
   let ingredients = [...Quiz.cocktail.ingredients];
-  await addRandomIngredients(ingredients);
+  addRandomIngredients(ingredients);
   ingredients = shuffle(ingredients);
 
   const cocktailIngredientsItem = document.createElement("ul");
@@ -156,10 +165,10 @@ async function showCocktailIngredients() {
     cocktailIngredientsItem.innerHTML += `
     <li class="col-6 col-md-3">
       <div class="ingredient-card">
-        <div class="ingredient-img">
+        <div class="ingredient-card__image">
           <img src="${CocktailDBAPI.getIngredientImg(ingredient)}" alt="" />
         </div>
-        <p class="ingredient-name">${ingredient}</p>
+        <div class="ingredient-card__name">${ingredient}</div>
       </div>
     </li>`;
   }
@@ -168,9 +177,7 @@ async function showCocktailIngredients() {
     .append(cocktailIngredientsItem);
 }
 
-async function addRandomIngredients(intialIngredients) {
-  let allAvaliableIngredients = await CocktailDBAPI.getAllIngredients();
-
+function addRandomIngredients(intialIngredients) {
   while (intialIngredients.length != SLOTS_FOR_INGREDIENTS) {
     const randomIngredient =
       allAvaliableIngredients[
@@ -191,9 +198,8 @@ function updateSelectedIngredients(ingredient) {
     Quiz.selectedIngredients.push(ingredient);
   }
 
-  document.querySelector(
-    ".cocktail-quiz__ingredients-selected-count"
-  ).innerText = Quiz.selectedIngredients.length;
+  document.querySelector("#selected-ingredients-count").innerText =
+    Quiz.selectedIngredients.length;
 }
 
 function shuffle(array) {
@@ -210,10 +216,11 @@ function shuffle(array) {
 
 function showAnswer() {
   const ingredientCards = document.querySelectorAll(".ingredient-card");
-  ingredientCards.forEach(ingredientCard => {
-    const ingredientName = ingredientCard.querySelector(".ingredient-name").innerText;
+  ingredientCards.forEach((ingredientCard) => {
+    const ingredientName = ingredientCard.querySelector(".ingredient-card__name")
+      .innerText;
     if (!Quiz.cocktail.ingredients.includes(ingredientName)) {
-      ingredientCard.classList.add("grayedout");
+      ingredientCard.classList.add("ingredient-card_grayedout");
     }
   });
 }

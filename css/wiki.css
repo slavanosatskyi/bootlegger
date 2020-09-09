@@ -234,18 +234,6 @@ button {
   }
 }
 
-.shake {
-  animation: 0.2s linear 4 alternate shake;
-}
-
-@keyframes shake {
-  from {
-    transform: rotate(-45deg);
-  }
-  to {
-    transform: rotate(45deg);
-  }
-}
 .header {
   position: fixed;
   z-index: 99;

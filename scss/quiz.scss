@@ -71,7 +71,7 @@
 
     @include breakpoint(md) {
         display: none;
-    }  
+    }
 }
 
 .task-description {
@@ -97,7 +97,7 @@
             transform: scale(1);
             opacity: 100%;
         }
-    
+
         100% {
             transform: scale(0);
             opacity: 0%;
@@ -142,8 +142,7 @@
 
         @include breakpoint(md) {
             left: auto;
-            width: 25%;
-            max-width: $container-max-width * 0.25;
+            width: $container-max-width * 0.25;
         }
     }
 
@@ -155,9 +154,20 @@
     &__ingredients-count {
         border-radius: 50%;
         padding: 7px;
+        animation: 0.2s linear 4 alternate shake;
 
         @include breakpoint(md) {
             border-radius: 5px;
+        }
+
+        @keyframes shake {
+            from {
+                transform: rotate(-45deg);
+            }
+
+            to {
+                transform: rotate(45deg);
+            }
         }
     }
 
@@ -193,7 +203,7 @@
 
     &__task-description {
         @include breakpoint(md) {
-            width: $container-max-width * 0.25;;
+            width: $container-max-width * 0.25;
             padding: 20px 10px;
         }
     }
@@ -217,9 +227,6 @@
 }
 
 .ingredient-img {
-    //filter: grayscale(0%);
-    //transition: filter 1s;
-
     img {
         width: 100%;
         height: 100%;
@@ -245,8 +252,23 @@
         border: 3px solid $correct-ingredient;
     }
 
+    &_grayedout &__image {
+        filter: grayscale(100%);
+    }
+
     &:hover {
         cursor: pointer;
+    }
+
+    &__image {
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &__name {
+        text-align: center;
     }
 }
 
@@ -257,5 +279,3 @@
 .ingredient-name {
     text-align: center;
 }
-
-
