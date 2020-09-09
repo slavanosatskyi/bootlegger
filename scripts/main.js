@@ -52,6 +52,13 @@ cocktailQuizItem.addEventListener("click", (e) => {
   if (nextTaskButton) {
     generateCocktailQuiz();
   }
+
+  const showTaskDescriptionBtn = document.getElementById("show-task-description");
+  if (showTaskDescriptionBtn && e.target.closest("#show-task-description") === showTaskDescriptionBtn) {
+    let elm = document.querySelector(".task-description");
+    let newone = elm.cloneNode(true);
+    elm.parentNode.replaceChild(newone, elm);
+  }
 });
 
 cocktailQuizItem.addEventListener("animationend", (e) => {
@@ -111,7 +118,7 @@ function resetQuiz() {
 
 function showQuiz() {
   cocktailQuizItem.innerHTML = `
-    <button class="task-description-button"><i class="fas fa-cocktail"></i></button>
+    <button class="task-description-button" id="show-task-description"><i class="fas fa-cocktail"></i></button>
     <div class="task-description__controls">
       <button class="task-description__ingredients-count">
         <span class="cocktail-quiz__ingredients-selected-count">0</span>/<span

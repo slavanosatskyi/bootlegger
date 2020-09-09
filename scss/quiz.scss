@@ -60,13 +60,14 @@
 ///////////////////////
 .task-description-button {
     position: fixed;
-    top: 55px;
+    top: 70px;
     left: 20px;
     letter-spacing: normal;
     border-radius: 50%;
     font-size: 1rem;
     width: 38px;
     height: 38px;
+    z-index: 3;
 
     @include breakpoint(md) {
         display: none;
@@ -79,14 +80,15 @@
     width: 100%;
     position: fixed;
     background-color: $primary-color;
-    transform-origin: 50px 20px;
+    transform-origin: 39px 39px;
     animation: 1s linear hide;
     animation-delay: 3s;
     animation-fill-mode: forwards;
 
     @include breakpoint(md) {
         animation: none;
-        position: static;
+        position: fixed;
+        top: 50px;
     }
 
     @keyframes hide {
@@ -191,7 +193,7 @@
 
     &__task-description {
         @include breakpoint(md) {
-            width: 25%;
+            width: $container-max-width * 0.25;;
             padding: 20px 10px;
         }
     }
@@ -199,6 +201,7 @@
     &__ingredients-list {
         @include breakpoint(md) {
             width: 75%;
+            margin-left: $container-max-width * 0.25;
         }
     }
 }
