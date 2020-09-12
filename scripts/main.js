@@ -141,7 +141,7 @@ function showQuizTask() {
 
 async function showCocktailIngredients() {
   let ingredients = [...Quiz.cocktail.ingredients];
-  await addRandomIngredients(ingredients);
+  addRandomIngredients(ingredients);
   ingredients = shuffle(ingredients);
 
   const cocktailIngredientsItem = document.createElement("ul");
@@ -183,7 +183,7 @@ function showQuizAnswer() {
   });
 }
 
-async function addRandomIngredients(initialIngredients) {
+function addRandomIngredients(initialIngredients) {
   const uniqueIngredients = allAvaliableIngredients.filter(
     (ingredient) =>
       !initialIngredients.find((initialIngredient) =>
