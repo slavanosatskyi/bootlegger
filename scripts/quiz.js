@@ -7,7 +7,6 @@ const SLOTS_FOR_INGREDIENTS = 12;
 //////////////////////////////
 // VARIABLES
 //////////////////////////////
-const burgerBtn = document.querySelector("#burger");
 const startQuizBtn = document.querySelector("#startQuiz");
 const cocktailQuizItem = document.querySelector("#cocktail-quiz");
 let allAvaliableIngredients = [];
@@ -34,10 +33,6 @@ startQuizBtn.addEventListener("click", (e) => {
     allAvaliableIngredients = result;
     generateCocktailQuiz();
   });
-});
-
-burgerBtn.addEventListener("click", (e) => {
-  toggleBurgerMenu();
 });
 
 cocktailQuizItem.addEventListener("click", (e) => {
@@ -87,11 +82,6 @@ function selectIngredient(ingredientCardItem) {
   if (Quiz.isQuizReady()) {
     showQuizAnswer();
   }
-}
-
-function toggleBurgerMenu() {
-  document.querySelector(".header__menu").classList.toggle("active");
-  document.querySelector(".header__burger").classList.toggle("active");
 }
 
 function animateElement(elem) {
