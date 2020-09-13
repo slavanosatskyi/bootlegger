@@ -457,11 +457,20 @@ main {
 .paggination__pages li:last-child {
   margin-right: auto;
 }
+.paggination__pages li:hover {
+  cursor: pointer;
+}
+.paggination__pages li.paggination__hellip:hover {
+  cursor: default;
+}
 .paggination__current-page {
   background: #fab1a0;
 }
 .paggination_hidden {
   display: none;
+}
+.paggination i:hover {
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=wiki.css.map */

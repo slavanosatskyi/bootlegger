@@ -8,6 +8,7 @@ const PAGE_SIZE = 16;
 //////////////////////////////
 // VARIABLES
 //////////////////////////////
+let currentPage = 1;
 const cocktailsList = document.querySelector("#cocktails-list");
 const paggination = document.querySelector(".paggination");
 
@@ -19,19 +20,37 @@ let cocktails = [];
 document.addEventListener("DOMContentLoaded", (event) => {
   CocktailDBAPI.getAllCocktails().then((result) => {
     cocktails = result;
-    
+
     // Show paggination
     paggination.classList.remove("paggination_hidden");
-    paggination.querySelector("#last-page").textContent = Math.ceil(cocktails.length / PAGE_SIZE);
 
-    // Show first page
-    showPage(1);
+    showContent();
   });
 });
 
+paggination.addEventListener("click", (event) => {
+  if (event.target.closest(".paggination__pages")) {
+    const pageNumber = parseInt(event.target.textContent);
+    if (isNaN(pageNumber)) {
+      console.log("not a page number");
+      return;
+    }
+
+    currentPage = pageNumber;
+    showContent();
+  }
+});
+
+function showContent() {
+  showPaggination();
+
+  // Show page with cocktails
+  showPage(currentPage);
+}
+
 function showPage(number) {
   cocktailsList.innerHTML = "";
-  const cocktailsToShow = cocktails.splice(PAGE_SIZE * number, PAGE_SIZE);
+  const cocktailsToShow = cocktails.slice(PAGE_SIZE * (number - 1), PAGE_SIZE * (number - 1) + PAGE_SIZE);
   for (const cocktail of cocktailsToShow) {
     cocktailsList.innerHTML += `
               <li class="col-6 col-md-3">
@@ -42,5 +61,42 @@ function showPage(number) {
                   <div class="card__name">${cocktail.name}</div>
                 </div>
               </li>`;
+  }
+}
+
+function showPaggination() {
+  const pagginationPagesItem = document.querySelector(".paggination__pages");
+  pagginationPagesItem.innerHTML = "";
+  const pagesAmount = Math.ceil(cocktails.length / PAGE_SIZE);
+  if (pagesAmount <= 7) {
+    for (let i = 1; i <= pagesAmount; i++) {
+      pagginationPagesItem.innerHTML += `<li class=${
+        i === currentPage ? "paggination__current-page" : ""
+      }>${i}</li>`;
+    }
+  } else if (currentPage < 4) {
+    for (let i = 1; i <= 4; i++) {
+      pagginationPagesItem.innerHTML += `<li class=${
+        i === currentPage ? "paggination__current-page" : ""
+      }>${i}</li>`;
+    }
+    pagginationPagesItem.innerHTML += `<li class="paggination__hellip">&hellip;</li>`;
+    pagginationPagesItem.innerHTML += `<li>${pagesAmount}</li>`;
+  } else if (pagesAmount - 3 < currentPage) {
+    pagginationPagesItem.innerHTML += `<li>1</li>`;
+    pagginationPagesItem.innerHTML += `<li class="paggination__hellip">&hellip;</li>`;
+    for (let i = pagesAmount - 4; i <= pagesAmount; i++) {
+      pagginationPagesItem.innerHTML += `<li class=${
+        i === currentPage ? "paggination__current-page" : ""
+      }>${i}</li>`;
+    }
+  } else {
+    pagginationPagesItem.innerHTML += `<li>1</li>`;
+    pagginationPagesItem.innerHTML += `<li class="paggination__hellip">&hellip;</li>`;
+    pagginationPagesItem.innerHTML += `<li>${currentPage - 1}</li>`;
+    pagginationPagesItem.innerHTML += `<li class="paggination__current-page">${currentPage}</li>`;
+    pagginationPagesItem.innerHTML += `<li>${currentPage + 1}</li>`;
+    pagginationPagesItem.innerHTML += `<li class="paggination__hellip">&hellip;</li>`;
+    pagginationPagesItem.innerHTML += `<li>${pagesAmount}</li>`;
   }
 }
