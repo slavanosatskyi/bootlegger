@@ -425,4 +425,43 @@ main {
   text-align: center;
 }
 
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.page__cocktails-list {
+  margin-bottom: 20px;
+}
+.page__paggination {
+  width: 300px;
+  margin-bottom: 20px;
+}
+
+.paggination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.paggination__pages {
+  list-style: none;
+  display: flex;
+  justify-self: center;
+}
+.paggination__pages li {
+  text-align: center;
+  width: 25px;
+  margin-right: 20px;
+  border-radius: 2px;
+}
+.paggination__pages li:last-child {
+  margin-right: auto;
+}
+.paggination__current-page {
+  background: #fab1a0;
+}
+.paggination_hidden {
+  display: none;
+}
+
 /*# sourceMappingURL=wiki.css.map */

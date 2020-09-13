@@ -1,1 +1,47 @@
-@import 'global'
+@import 'global';
+
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__cocktails-list {
+        margin-bottom: 20px;
+    }
+
+    &__paggination {
+        width: 300px;
+        margin-bottom: 20px;
+    }
+}
+
+.paggination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__pages {
+        list-style: none;
+        display: flex;
+        justify-self: center;
+
+        li {
+            text-align: center;
+            width: 25px;
+            margin-right: 20px;
+            border-radius: 2px;
+
+            &:last-child {
+                margin-right: auto;
+            }
+        }
+    }
+
+    &__current-page {
+        background: $primary-color;
+    }
+
+    &_hidden {
+        display: none;
+    }
+}

@@ -1,8 +1,9 @@
 export class Cocktail {
-  constructor(name, ingredients = null, imgURL = null) {
-    this.name = name;
+  constructor({idDrink, strDrink, ingredients, strDrinkThumb}) {
+    this.id = idDrink;
+    this.name = strDrink;
     this.ingredients = ingredients;
-    this.imgURL = imgURL + "/preview";
+    this.imgURL = strDrinkThumb + "/preview";
   }
 }
 
@@ -29,12 +30,37 @@ export class CocktailDBAPI {
 
     if (response.ok) {
       const cocktailData = await response.json();
-      return new Cocktail(
-        cocktailData.drinks[0].strDrink,
-        await getIngredientsForCocktail(cocktailData.drinks[0]),
-        cocktailData.drinks[0].strDrinkThumb
-      );
+      cocktailData.drinks[0].ingredients = await getIngredientsForCocktail(cocktailData.drinks[0]);
+      return new Cocktail(cocktailData.drinks[0]);
     }
+  }
+
+  static async getAllCocktails() {
+    // Get all drinks categories
+    let response = await fetch(
+      "https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list"
+    );
+    if (!response.ok) {
+      console.log("Can't get categories list");
+      return;
+    }
+
+    let categories = await response.json();
+    categories = categories.drinks.map(category => category.strCategory);
+
+    // Get all drinks from each category
+    let cocktails = [];
+    for (let category of categories) {
+      cocktails.push(fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`));
+    }
+    cocktails = await Promise.all(cocktails);
+    cocktails = cocktails.map(cocktail => cocktail.json());
+    cocktails = await Promise.all(cocktails);
+    cocktails = cocktails.map(cocktail => cocktail.drinks);
+    cocktails = cocktails.flat();
+    cocktails = cocktails.map(cocktail => new Cocktail(cocktail));
+
+    return cocktails;
   }
 
   static getIngredientImg(ingredient) {

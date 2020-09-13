@@ -12,24 +12,43 @@
     <div class="container">
         <header class="header row">
             <div class="header__logo">
-              <div class="header__icon"><i class="fas fa-cocktail"></i></div>
-              <h1 class="header__text">Bootlegger</h1>
+                <div class="header__icon"><i class="fas fa-cocktail"></i></div>
+                <h1 class="header__text">Bootlegger</h1>
             </div>
             <div class="header__burger" id="burger">
-              <span></span>
+                <span></span>
             </div>
             <nav class="header__menu">
-              <ul class="header__links-list">
-                <li><a href="./index.html" class="header__link">QUIZ</a></li>
-                <li><a href="./wiki.html" class="header__link">WIKI</a></li>
-              </ul>
+                <ul class="header__links-list">
+                    <li><a href="./index.html" class="header__link">QUIZ</a></li>
+                    <li><a href="./wiki.html" class="header__link">WIKI</a></li>
+                </ul>
             </nav>
-          </header>
-          <main>
+        </header>
+        <main>
+            <div class="search">SEARCH</div>
+            <div class="page">
+                <ul id="cocktails-list" class="page__cocktails-list cards-list row">
+                </ul>
+                <div class="page__paggination paggination paggination_hidden">
+                    <i class="fas fa-angle-left"></i>
+                    <ul class="paggination__pages">
+                        <li id="first-page">1</li>
+                        <li id="current-page" class="paggination__current-page">2</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>5</li>
+                        <li>&hellip;</li>
+                        <li id="last-page">89</li>
+                    </ul>
+                    <i class="fas fa-angle-right"></i>
+                </div>
+            </div>
 
-          </main>
+        </main>
     </div>
     <script src="./scripts/global.js"></script>
+    <script src="./scripts/wiki.js" type="module"></script>
     <script src="https://kit.fontawesome.com/1968adc72e.js" crossorigin="anonymous"></script>
 </body>
 
