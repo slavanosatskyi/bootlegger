@@ -11,6 +11,8 @@ const PAGE_SIZE = 16;
 let currentPage = 1;
 const cocktailsList = document.querySelector("#cocktails-list");
 const paggination = document.querySelector(".paggination");
+const prevPageButton = document.querySelector(".fa-angle-left");
+const nextPageButton = document.querySelector(".fa-angle-right");
 
 let cocktails = [];
 
@@ -29,10 +31,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 });
 
 paggination.addEventListener("click", (event) => {
-  if (event.target.closest(".paggination__pages")) {
-    const pageNumber = parseInt(event.target.textContent);
+  if (event.target.closest(".paggination__pages") && event.target.tagName === "LI") {
+    const pageNumber = parseInt(event.target.innerText);
     if (isNaN(pageNumber)) {
-      console.log("not a page number");
       return;
     }
 
@@ -41,6 +42,27 @@ paggination.addEventListener("click", (event) => {
   }
 });
 
+prevPageButton.addEventListener("click", (event) => {
+  if (currentPage === 1) {
+    return;
+  }
+
+  currentPage--;
+  showContent();
+});
+
+nextPageButton.addEventListener("click", (event) => {
+  if (currentPage === Math.ceil(cocktails.length / PAGE_SIZE)) {
+    return;
+  }
+
+  currentPage++;
+  showContent();
+});
+
+//////////////////////////////
+// HELPERS
+//////////////////////////////
 function showContent() {
   showPaggination();
 
