@@ -81,9 +81,17 @@ search.addEventListener("input", (event) => {
 cocktailsList.addEventListener("click", (event) => {
   let card = event.target.closest(".card");
   if (card) {
-    //SHOW POPUP
+    showCocktailPopup(card.dataset.cocktailId);
   }
 });
+
+dimmer.addEventListener("click", (event) => {
+  dimmer.classList.remove("dimmer_active");
+  const popup = document.querySelector(".popup");
+  if (popup) {
+    popup.classList.remove("popup_active");
+  }
+})
 //////////////////////////////
 // HELPERS
 //////////////////////////////
@@ -151,8 +159,7 @@ function showPaggination() {
 }
 
 function showCocktailPopup(id) {
-  const body = document.querySelector("body");
-  const popup = document.createElement("div");
-  popup.classList.add("popup");
-  body.append(popup);
+  const popup = document.querySelector(".popup");
+  popup.classList.add("popup_active");
+  dimmer.classList.add("dimmer_active");
 }
