@@ -26,11 +26,11 @@
             </nav>
         </header>
         <main>
-            <input class="search" placeholder="Search..."></input>
+            <input class="search" id="search" placeholder="Search..."></input>
             <div class="page">
                 <ul id="cocktails-list" class="page__cocktails-list cards-list row">
                 </ul>
-                <div class="page__paggination paggination paggination_hidden">
+                <div class="page__paggination paggination paggination_hidden" id="paggination">
                     <i class="fas fa-angle-left"></i>
                     <ul class="paggination__pages">
                     </ul>
@@ -38,8 +38,10 @@
                 </div>
             </div>
         </main>
-        <div class="dimmer"></div>
-        <div class="popup"></div>
+        <div class="dimmer" id="dimmer"></div>
+        <div class="popup" id="cocktail-popup">
+            <button class="popup__close-btn" id="close-popup"><i class="fas fa-times"></i></button>
+        </div>
     </div>
     <script src="./scripts/global.js"></script>
     <script src="./scripts/wiki.js" type="module"></script>

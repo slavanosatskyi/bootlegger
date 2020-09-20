@@ -97,6 +97,23 @@
     border-radius: 5px;
     box-shadow: 4px 4px 10px #000000cc;
 
+    &__close-btn {
+        position: absolute;
+        right: 0;
+        top: 0;
+        border: none;
+        box-shadow: none;
+        background-color: transparent;
+        font-size: 1.5rem;
+        padding: 0 5px;
+
+        &:hover {
+            background-color: transparent;
+            color: $text-color-selected;
+            cursor: pointer;
+        }
+    }
+
     &_active {
        display: block; 
     }

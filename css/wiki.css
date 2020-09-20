@@ -511,6 +511,21 @@ main {
   border-radius: 5px;
   box-shadow: 4px 4px 10px #000000cc;
 }
+.popup__close-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+  font-size: 1.5rem;
+  padding: 0 5px;
+}
+.popup__close-btn:hover {
+  background-color: transparent;
+  color: #636e72;
+  cursor: pointer;
+}
 .popup_active {
   display: block;
 }

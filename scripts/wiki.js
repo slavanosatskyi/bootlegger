@@ -10,11 +10,13 @@ const PAGE_SIZE = 16;
 //////////////////////////////
 let currentPage = 1;
 const cocktailsList = document.querySelector("#cocktails-list");
-const paggination = document.querySelector(".paggination");
+const paggination = document.querySelector("#paggination");
 const prevPageButton = document.querySelector(".fa-angle-left");
 const nextPageButton = document.querySelector(".fa-angle-right");
-const search = document.querySelector(".search");
-const dimmer = document.querySelector(".dimmer");
+const search = document.querySelector("#search");
+const dimmer = document.querySelector("#dimmer");
+const popup = document.querySelector("#cocktail-popup");
+const closePopupButton = document.querySelector("#close-popup");
 
 let cocktails = [];
 let searchedCocktails = [];
@@ -86,12 +88,12 @@ cocktailsList.addEventListener("click", (event) => {
 });
 
 dimmer.addEventListener("click", (event) => {
-  dimmer.classList.remove("dimmer_active");
-  const popup = document.querySelector(".popup");
-  if (popup) {
-    popup.classList.remove("popup_active");
-  }
-})
+  closeCocktailPopup();
+});
+
+closePopupButton.addEventListener("click", (event) => {
+  closeCocktailPopup();
+});
 //////////////////////////////
 // HELPERS
 //////////////////////////////
@@ -159,7 +161,11 @@ function showPaggination() {
 }
 
 function showCocktailPopup(id) {
-  const popup = document.querySelector(".popup");
   popup.classList.add("popup_active");
   dimmer.classList.add("dimmer_active");
+}
+
+function closeCocktailPopup() {
+  dimmer.classList.remove("dimmer_active");
+  popup.classList.remove("popup_active");
 }
