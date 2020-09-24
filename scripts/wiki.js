@@ -163,9 +163,11 @@ function showPaggination() {
 function showCocktailPopup(id) {
   popup.classList.add("popup_active");
   dimmer.classList.add("dimmer_active");
+  document.body.classList.add("scroll-blocked");
 }
 
 function closeCocktailPopup() {
   dimmer.classList.remove("dimmer_active");
   popup.classList.remove("popup_active");
+  document.body.classList.remove("scroll-blocked");
 }

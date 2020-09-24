@@ -213,6 +213,10 @@ body {
   position: relative;
 }
 
+.scroll-blocked {
+  overflow: hidden;
+}
+
 button {
   border-radius: 5px;
   border: 1px solid #00cecb;

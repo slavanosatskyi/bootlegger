@@ -16,8 +16,7 @@ export class Ingredient {
   equals(other) {
     return (
       other instanceof Ingredient &&
-      other.id === this.id &&
-      other.name === this.name
+      other.id === this.id
     );
   }
 }
