@@ -1,3 +1,4 @@
+export default function global() {
 //////////////////////////////
 // VARIABLES
 //////////////////////////////
@@ -17,3 +18,5 @@ function toggleBurgerMenu() {
   document.querySelector(".header__menu").classList.toggle("active");
   document.querySelector(".header__burger").classList.toggle("active");
 }
+}
+
