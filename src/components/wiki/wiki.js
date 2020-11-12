@@ -1,4 +1,6 @@
-import { CocktailDBAPI } from "./cocktailAPI.js";
+import { CocktailDBAPI } from "../../service/cocktailAPI.js";
+
+import "./wiki.scss";
 
 export default function wiki() {
   console.log("wiki start");

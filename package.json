@@ -18,7 +18,13 @@
   },
   "homepage": "https://github.com/slavanosatskyi/bootlegger#readme",
   "devDependencies": {
+    "sass": "^1.29.0",
     "webpack": "^5.4.0",
     "webpack-cli": "^4.2.0"
+  },
+  "dependencies": {
+    "css-loader": "^5.0.1",
+    "sass-loader": "^10.1.0",
+    "style-loader": "^2.0.0"
   }
 }

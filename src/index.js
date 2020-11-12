@@ -1,6 +1,6 @@
-import global from "./scripts/global.js";
-import quiz from "./scripts/quiz.js";
-import wiki from "./scripts/wiki.js";
+import global from "./header/global.js";
+import quiz from "./components/quiz/quiz.js";
+import wiki from "./components/wiki/wiki.js";
 
 window.onload = () => {
   var path = window.location.pathname;

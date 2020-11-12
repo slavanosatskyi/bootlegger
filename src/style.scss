@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap");
+
+@import "./_mixins.scss";
+@import "./_grid.scss";
+
+///////////////////////
+// VARIABLES
+///////////////////////
+$font-stack: "Oswald", sans-serif;
+$text-color: #2d3436;
+$text-color-selected: #636e72;
+$primary-color: #fab1a0;
+$primary-color-selected: #f9a490;
+$secondary-color: #00cecb;
+$selected-ingredient: #0984e3;
+$wrong-ingredient: #d63031;
+$correct-ingredient: #00b894;
+$container-max-width: 1240px;
+
+///////////////////////
+// GENERAL
+///////////////////////
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-size: 16px;
+  font-family: $font-stack;
+  color: $text-color;
+}
+
+.container {
+  max-width: $container-max-width;
+  margin: 0 auto;
+  position: relative;
+}
+
+@import "./_global.scss";
