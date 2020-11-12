@@ -1,3 +1,5 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const path = require("path");
 
 module.exports = {
@@ -5,11 +7,11 @@ module.exports = {
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "main.js",
+    filename: "bundle.js",
+    assetModuleFilename: 'images/[name][ext]'
   },
   devtool: "inline-source-map",
   devServer: {
-    contentBase: './dist',
     open: true,
     port: 3000,
   },
@@ -19,6 +21,18 @@ module.exports = {
         test: /\.s[ac]ss$/i,
         use: ["style-loader", "css-loader", "sass-loader"],
       },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
     ],
   },
+  plugins: [
+      new HtmlWebpackPlugin({template: "./index.html"}),
+      new HtmlWebpackPlugin({
+          template: "./wiki.html",
+          filename: "wiki.html"
+        }),
+      new CleanWebpackPlugin()
+    ]
 };
