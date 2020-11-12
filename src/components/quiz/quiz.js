@@ -3,7 +3,6 @@ import { CocktailDBAPI } from "../../service/cocktailAPI.js";
 import "./quiz.scss";
 
 export default function quiz() {
-  console.log("Quiz start");
   //////////////////////////////
   // CONSTANTS
   //////////////////////////////
