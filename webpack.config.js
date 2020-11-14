@@ -1,5 +1,5 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const path = require("path");
 
 module.exports = {
@@ -8,7 +8,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
-    assetModuleFilename: 'images/[name][ext]'
+    assetModuleFilename: "images/[name][ext]",
   },
   devtool: "inline-source-map",
   devServer: {
@@ -18,21 +18,32 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: [["@babel/preset-env", { useBuiltIns: "usage" }],
+                      ["@babel/preset-react"]],
+          },
+        },
+      },
+      {
         test: /\.s[ac]ss$/i,
         use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: 'asset/resource',
+        type: "asset/resource",
       },
     ],
   },
   plugins: [
-      new HtmlWebpackPlugin({template: "./index.html"}),
-      new HtmlWebpackPlugin({
-          template: "./wiki.html",
-          filename: "wiki.html"
-        }),
-      new CleanWebpackPlugin()
-    ]
+    new HtmlWebpackPlugin({ template: "./index.html" }),
+    new HtmlWebpackPlugin({
+      template: "./wiki.html",
+      filename: "wiki.html",
+    }),
+    new CleanWebpackPlugin(),
+  ],
 };
