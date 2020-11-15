@@ -2,7 +2,7 @@ import React from 'react';
 
 import { CocktailDBAPI } from "../../service/cocktailAPI.js";
 
-import "./wiki.scss";
+import "./Wiki.scss";
 
 export default class Wiki extends React.Component {
   componentDidMount() {

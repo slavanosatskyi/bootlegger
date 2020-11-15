@@ -2,7 +2,7 @@ import React from "react";
 
 import { CocktailDBAPI } from "../../service/cocktailAPI.js";
 
-import "./quiz.scss";
+import "./Quiz.scss";
 
 import img from "../../../images/cocktail-panel.jpg";
 
