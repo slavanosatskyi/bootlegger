@@ -5,22 +5,24 @@ import Quiz from "../quiz/Quiz";
 import Wiki from "../wiki/Wiki";
 import Header from "../header/Header";
 
+import "./App.scss";
+
 const App = () => {
-    return (
+  return (
+    <div className="app">
       <HashRouter basename="/">
-        <div className="container">
-          <Header />
-          <Switch>
-            <Route exact path={["/", "/quiz"]}>
-              <Quiz />
-            </Route>
-            <Route path="/wiki">
-              <Wiki />
-            </Route>
-          </Switch>
-        </div>
+        <Header />
+        <Switch>
+          <Route exact path={["/", "/quiz"]}>
+            <Quiz />
+          </Route>
+          <Route path="/wiki">
+            <Wiki />
+          </Route>
+        </Switch>
       </HashRouter>
-    );
-}
+    </div>
+  );
+};
 
 export default App;

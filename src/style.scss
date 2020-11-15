@@ -32,10 +32,4 @@ body {
   color: $text-color;
 }
 
-.container {
-  max-width: $container-max-width;
-  margin: 0 auto;
-  position: relative;
-}
-
 @import "./_global.scss";
