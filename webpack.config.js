@@ -6,8 +6,7 @@ module.exports = {
   mode: "development",
   entry: "./src/index.js",
   output: {
-    path: path.resolve(__dirname, "docs"),
-    publicPath: '/',
+    path: path.resolve(__dirname, "build"),
     filename: "bundle.js",
     assetModuleFilename: "images/[name][ext]",
   },
@@ -15,7 +14,6 @@ module.exports = {
   devServer: {
     open: true,
     port: 3000,
-    historyApiFallback: true,
   },
   module: {
     rules: [

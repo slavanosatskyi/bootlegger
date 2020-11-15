@@ -5,6 +5,8 @@
   "main": "./src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "webpack --mode=production",
     "start": "webpack serve"
   },
@@ -17,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/slavanosatskyi/bootlegger/issues"
   },
-  "homepage": "https://github.com/slavanosatskyi/bootlegger#readme",
+  "homepage": "https://github.com/slavanosatskyi/bootlegger",
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
@@ -35,6 +37,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
     "css-loader": "^5.0.1",
+    "gh-pages": "^3.1.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
