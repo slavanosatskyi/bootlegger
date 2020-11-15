@@ -7,6 +7,7 @@ module.exports = {
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "docs"),
+    publicPath: '/',
     filename: "bundle.js",
     assetModuleFilename: "images/[name][ext]",
   },
@@ -14,6 +15,7 @@ module.exports = {
   devServer: {
     open: true,
     port: 3000,
+    historyApiFallback: true,
   },
   module: {
     rules: [
@@ -40,10 +42,6 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({ template: "./index.html" }),
-    new HtmlWebpackPlugin({
-      template: "./wiki.html",
-      filename: "wiki.html",
-    }),
     new CleanWebpackPlugin(),
   ],
 };

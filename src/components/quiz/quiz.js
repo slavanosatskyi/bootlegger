@@ -1,8 +1,44 @@
+import React from "react";
+
 import { CocktailDBAPI } from "../../service/cocktailAPI.js";
 
 import "./quiz.scss";
 
-export default function quiz() {
+import img from "../../../images/cocktail-panel.jpg";
+
+
+export default class Quiz extends React.Component {
+  componentDidMount() {
+    quiz();
+  }
+
+  render() {
+    return (
+      <main>
+        <div className="cocktail-quiz" id="cocktail-quiz">
+          <div className="panel cocktail-quiz__panel">
+            <div className="panel__logo">
+              <img src={img} alt="" />
+            </div>
+            <div className="panel__call-to-action">
+              <p className="panel__text">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempora
+                iusto recusandae porro accusantium, vel temporibus excepturi quae
+                facilis omnis vero molestias doloribus id obcaecati, deleniti,
+                veniam quibusdam cupiditate explicabo voluptatem.
+              </p>
+              <button className="panel__button" id="startQuiz">
+                START
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+    );
+  }
+};
+
+const quiz = () => {
   //////////////////////////////
   // CONSTANTS
   //////////////////////////////
@@ -120,7 +156,7 @@ export default function quiz() {
     showCocktailIngredients();
     showQuizTask();
   }
-  
+
   function showQuizTask() {
     const quizTaskItem = document.querySelector(
       ".cocktail-quiz__task-description"
@@ -132,12 +168,12 @@ export default function quiz() {
       </div> 
     `;
   }
-  
+
   async function showCocktailIngredients() {
     let ingredients = [...Quiz.cocktail.ingredients];
     addRandomIngredients(ingredients);
     ingredients = shuffle(ingredients);
-  
+
     const cocktailIngredientsItem = document.createElement("ul");
     cocktailIngredientsItem.classList.add("cards-list");
     cocktailIngredientsItem.classList.add("row");
@@ -158,7 +194,7 @@ export default function quiz() {
       .querySelector(".cocktail-quiz__ingredients-list")
       .append(cocktailIngredientsItem);
   }
-  
+
   function showQuizAnswer() {
     const cards = document.querySelectorAll(".card");
     cards.forEach((card) => {
@@ -176,7 +212,7 @@ export default function quiz() {
       }
     });
   }
-  
+
   function addRandomIngredients(initialIngredients) {
     const uniqueIngredients = allAvaliableIngredients.filter(
       (ingredient) =>
@@ -184,7 +220,7 @@ export default function quiz() {
           initialIngredient.equals(ingredient)
         )
     );
-  
+
     while (initialIngredients.length != SLOTS_FOR_INGREDIENTS) {
       const randomIndex = Math.round(
         Math.random() * (uniqueIngredients.length - 1)
@@ -193,7 +229,7 @@ export default function quiz() {
       uniqueIngredients.splice(randomIndex, 1);
     }
   }
-  
+
   function shuffle(array) {
     let indexes = array.map((value, index) => index);
     let shuffledArray = [];
@@ -202,9 +238,7 @@ export default function quiz() {
       shuffledArray.push(array[indexes[randomIndex]]);
       indexes.splice(randomIndex, 1);
     }
-  
+
     return shuffledArray;
   }
-}
-
-
+};

@@ -1,8 +1,50 @@
+import React from 'react';
+
 import { CocktailDBAPI } from "../../service/cocktailAPI.js";
 
 import "./wiki.scss";
 
-export default function wiki() {
+export default class Wiki extends React.Component {
+  componentDidMount() {
+    wiki();
+  }
+
+  render() {
+    return (
+      <main>
+        <input className="search" id="search" placeholder="Search..."></input>
+        <div className="page">
+          <ul
+            id="cocktails-list"
+            className="page__cocktails-list cards-list row"
+          ></ul>
+          <div
+            className="page__paggination paggination paggination_hidden"
+            id="paggination"
+          >
+            <i className="fas fa-angle-left"></i>
+            <ul className="paggination__pages"></ul>
+            <i className="fas fa-angle-right"></i>
+          </div>
+        </div>
+        <div className="dimmer" id="dimmer"></div>
+        <div className="popup" id="cocktail-popup">
+            <button className="popup__close-btn" id="close-popup"><i className="fas fa-times"></i></button>
+            <div className="popup__cocktail-info cocktail-info">
+                <div className="cocktail-info__image">
+                    <img src="" alt=""/>
+                </div>
+                <div className="cocktail-info__recipe">
+
+                </div>
+            </div>
+        </div>
+      </main>
+    );
+  }
+}
+
+const wiki = () => {
   //////////////////////////////
   // CONSTANTS
   //////////////////////////////
@@ -176,4 +218,4 @@ export default function wiki() {
     popup.classList.remove("popup_active");
     document.body.classList.remove("scroll-blocked");
   }
-}
+};
