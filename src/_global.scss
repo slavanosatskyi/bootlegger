@@ -1,11 +1,4 @@
 ///////////////////////
-// GENERAL
-///////////////////////
-.scroll-blocked {
-  overflow: hidden;
-}
-
-///////////////////////
 // COMPONENTS
 ///////////////////////
 button {
@@ -26,17 +19,6 @@ button {
           background-color: $primary-color-selected;
           cursor: pointer;
       }
-  }
-}
-
-///////////////////////
-// MAIN
-///////////////////////
-main {
-  padding-top: 50px;
-
-  @include breakpoint(md) {
-    padding-top: 70px;
   }
 }
 

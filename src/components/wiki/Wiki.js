@@ -70,8 +70,6 @@ const wiki = () => {
   // HANDLERS
   //////////////////////////////
   (() => {
-    console.log("Page is loading...");
-
     CocktailDBAPI.getAllCocktails().then((result) => {
       cocktails = result;
       searchedCocktails = cocktails;

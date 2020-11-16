@@ -32,4 +32,12 @@ body {
   color: $text-color;
 }
 
+main {
+  padding-top: 50px;
+
+  @include breakpoint(md) {
+    padding-top: 70px;
+  }
+}
+
 @import "./_global.scss";
