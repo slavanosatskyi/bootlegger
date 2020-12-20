@@ -2,24 +2,23 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import "./Header.scss";
+import MenuButton from "./menuButton/MenuButton";
 
 export default class Header extends React.Component {
-  componentDidMount() {
-    header();
+  constructor(props) {
+    super(props);
   }
 
   render() {
     return (
-      <header className="header row">
+      <header className="header">
         <div className="header__logo">
           <div className="header__icon">
             <i className="fas fa-cocktail"></i>
           </div>
           <h1 className="header__text">Bootlegger</h1>
         </div>
-        <div className="header__burger" id="burger">
-          <span></span>
-        </div>
+        <MenuButton />
         <nav className="header__menu">
           <ul className="header__links-list">
             <li>

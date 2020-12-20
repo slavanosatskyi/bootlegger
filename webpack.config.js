@@ -3,8 +3,8 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const path = require("path");
 
 module.exports = {
-  mode: "development",
-  entry: "./src/index.js",
+  mode: "development", 
+  entry: ['@babel/polyfill', './src/index.js'],
   output: {
     path: path.resolve(__dirname, "build"),
     filename: "bundle.js",
@@ -18,19 +18,13 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.m?js$/,
-        exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: [["@babel/preset-env", { useBuiltIns: "usage" }],
-                      ["@babel/preset-react"]],
-          },
-        },
+        test: /\.scss$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
-        test: /\.s[ac]ss$/i,
-        use: ["style-loader", "css-loader", "sass-loader"],
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: ["babel-loader"],
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
@@ -39,7 +33,21 @@ module.exports = {
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: "./index.html" }),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, "index.html"),
+    }),
     new CleanWebpackPlugin(),
   ],
+  resolve: {
+    fallback: {
+      path: require.resolve("path-browserify"),
+      crypto: require.resolve("crypto-browserify"),
+      https: require.resolve("https-browserify"),
+      http: require.resolve("stream-http"),
+      vm: require.resolve("vm-browserify"),
+      os: require.resolve("os-browserify/browser"),
+      stream: require.resolve("stream-browserify"),
+      constants: require.resolve("constants-browserify"),
+    },
+  },
 };

@@ -1,17 +1,21 @@
 @import "../../style.scss";
 
 .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     position: fixed;
     z-index: 99;
+    min-height: 50px;
+    width: 100%;
+    max-width: 1240px;
     left: 50%;
     transform: translate(-50%);
     background: $secondary-color;
-    height: 50px;
-    align-items: center;
-    max-width: 1240px;
-  
+    padding: 0 10px;
+ 
     @include breakpoint(md) {
-      height: 70px;
+      min-height: 70px;
     }
   
     &__logo {
@@ -63,59 +67,6 @@
         position: static;
         width: auto;
         height: auto;
-      }
-    }
-  
-    &__burger {
-      position: relative;
-      width: 20px;
-      height: 20px;
-  
-      @include breakpoint(md) {
-        display: none;
-      }
-  
-      &:after {
-        content: "";
-        position: absolute;
-        top: 5px;
-        height: 2px;
-        width: 20px;
-        background-color: $text-color;
-        transition: all 0.3s;
-      }
-  
-      &:before {
-        content: "";
-        top: 15px;
-        position: absolute;
-        height: 2px;
-        width: 20px;
-        background-color: $text-color;
-        transition: all 0.3s;
-      }
-  
-      span {
-        display: block;
-        position: absolute;
-        top: 10px;
-        height: 2px;
-        width: 20px;
-        background-color: $text-color;
-      }
-  
-      &.active:after {
-        transform: rotate(45deg);
-        top: 10px;
-      }
-  
-      &.active:before {
-        transform: rotate(-45deg);
-        top: 10px;
-      }
-  
-      &.active span {
-        transform: scale(0);
       }
     }
   
