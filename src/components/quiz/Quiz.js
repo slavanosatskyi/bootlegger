@@ -1,9 +1,12 @@
+// Modules
 import React from "react";
 
+// Local
 import { CocktailDBAPI } from "../../service/cocktailAPI.js";
+import {addRandomIngredients, shuffle} from "../../helpers/utils.js";
 
+// Assets
 import "./Quiz.scss";
-
 import img from "../../../images/cocktail-panel.jpg";
 
 
@@ -18,10 +21,10 @@ export default class Quiz extends React.Component {
         <div className="cocktail-quiz" id="cocktail-quiz">
           <div className="panel cocktail-quiz__panel">
             <div className="panel__logo">
-              <img src={img} alt="" />
+              <img data-testid="intro_image" src={img} alt="" />
             </div>
             <div className="panel__call-to-action">
-              <p className="panel__text">
+              <p data-testid="intro_text" className="panel__text">
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempora
                 iusto recusandae porro accusantium, vel temporibus excepturi quae
                 facilis omnis vero molestias doloribus id obcaecati, deleniti,
@@ -39,11 +42,6 @@ export default class Quiz extends React.Component {
 };
 
 const quiz = () => {
-  //////////////////////////////
-  // CONSTANTS
-  //////////////////////////////
-  const SLOTS_FOR_INGREDIENTS = 12;
-
   //////////////////////////////
   // VARIABLES
   //////////////////////////////
@@ -164,14 +162,14 @@ const quiz = () => {
     quizTaskItem.innerHTML = `
       <h2 class="task-description__title">${Quiz.cocktail.name}</h2>
       <div class="task-description__cocktail-image">
-        <img src="${Quiz.cocktail.imgURL}" alt="" />
+        <img data-testid="cocktail_image" src="${Quiz.cocktail.imgURL}" alt="" />
       </div> 
     `;
   }
 
   async function showCocktailIngredients() {
     let ingredients = [...Quiz.cocktail.ingredients];
-    addRandomIngredients(ingredients);
+    addRandomIngredients(ingredients, allAvaliableIngredients);
     ingredients = shuffle(ingredients);
 
     const cocktailIngredientsItem = document.createElement("ul");
@@ -206,39 +204,12 @@ const quiz = () => {
         card.classList.add("card_grayedout");
         if (card.classList.contains("card_selected")) {
           card.classList.add("card_wrong");
+          card.setAttribute("data-testid", "wrong");
         }
       } else if (card.classList.contains("card_selected")) {
         card.classList.add("card_correct");
+        card.setAttribute("data-testid", "correct");
       }
     });
-  }
-
-  function addRandomIngredients(initialIngredients) {
-    const uniqueIngredients = allAvaliableIngredients.filter(
-      (ingredient) =>
-        !initialIngredients.find((initialIngredient) =>
-          initialIngredient.equals(ingredient)
-        )
-    );
-
-    while (initialIngredients.length != SLOTS_FOR_INGREDIENTS) {
-      const randomIndex = Math.round(
-        Math.random() * (uniqueIngredients.length - 1)
-      );
-      initialIngredients.push(uniqueIngredients[randomIndex]);
-      uniqueIngredients.splice(randomIndex, 1);
-    }
-  }
-
-  function shuffle(array) {
-    let indexes = array.map((value, index) => index);
-    let shuffledArray = [];
-    for (let i = 0; i < array.length; i++) {
-      const randomIndex = Math.round(Math.random() * (indexes.length - 1));
-      shuffledArray.push(array[indexes[randomIndex]]);
-      indexes.splice(randomIndex, 1);
-    }
-
-    return shuffledArray;
   }
 };
