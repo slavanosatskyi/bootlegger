@@ -1,5 +1,9 @@
 import axios from "axios";
 
+/////////////////////////////////////
+// TODO: make single place for cocktail creation
+/////////////////////////////////////
+
 export const getRandomCocktail = async () => {
   try {
     const response = await axios.get(
@@ -20,9 +24,15 @@ export const getRandomCocktail = async () => {
 };
 
 export const getAllCocktails = async () => {
-  let categories = await axios.get(
-    "https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list"
-  );
+  let categories = [];
+  try {
+    categories = await axios.get(
+      "https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list"
+    );
+  } catch {
+    throw Error("Error while getting the list of category drinks");
+  }
+
   categories = categories.drinks.map(({ strCategory }) => strCategory);
 
   let cocktails = [];
@@ -33,15 +43,26 @@ export const getAllCocktails = async () => {
       )
     );
   }
-  cocktails = await Promise.all(cocktails);
+
+  try {
+    cocktails = await Promise.all(cocktails);
+  } catch {
+    throw Error("Error while getting drinks for all categories");
+  }
   cocktails = cocktails.map((item) => item.drinks);
   cocktails = cocktails.flat();
+
   let ingredients = [];
   for (let i = 0; i < cocktails.length; i++) {
     ingredients.push(getCocktailIngredients(cocktails[i]));
   }
-  ingredients = await Promise.all(ingredients);
-  cocktails = cocktails.map((cocktail, index) => {
+  try {
+    ingredients = await Promise.all(ingredients);
+  } catch {
+    throw Error("Error while getting ingredients for cocktails");
+  }
+
+  return cocktails.map((cocktail, index) => {
     return {
       id: cocktail.idDrink,
       title: cocktail.strDrink,
@@ -50,8 +71,6 @@ export const getAllCocktails = async () => {
       ingredients: ingredients[index],
     };
   });
-
-  return cocktails;
 };
 
 export async function getAllIngredients() {

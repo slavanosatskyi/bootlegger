@@ -1,5 +1,5 @@
 import React from "react";
-import { HashRouter, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
 import Quiz from "../quiz/Quiz";
 import Wiki from "../wiki/Wiki";
@@ -10,7 +10,7 @@ import "./App.scss";
 const App = () => {
   return (
     <div className="app">
-      <HashRouter basename="/">
+      <Router basename="/">
         <Header />
         <Switch>
           <Route exact path={["/", "/quiz"]}>
@@ -20,7 +20,7 @@ const App = () => {
             <Wiki />
           </Route>
         </Switch>
-      </HashRouter>
+      </Router>
     </div>
   );
 };
