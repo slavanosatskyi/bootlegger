@@ -1,17 +1,14 @@
+import { QUIZ_INGREDIENTS_GRID_SIZE } from "./config";
 
 export function addRandomIngredients(
   initialIngredients,
   allAvaliableIngredients
 ) {
   const uniqueIngredients = allAvaliableIngredients.filter(
-    (ingredient) =>
-      !initialIngredients.find(({id}) =>
-        id === ingredient.id
-      )
+    (ingredient) => !initialIngredients.find(({ id }) => id === ingredient.id)
   );
-  
-  const SLOTS_FOR_INGREDIENTS = 12;
-  while (initialIngredients.length != SLOTS_FOR_INGREDIENTS) {
+
+  while (initialIngredients.length != QUIZ_INGREDIENTS_GRID_SIZE) {
     const randomIndex = Math.round(
       Math.random() * (uniqueIngredients.length - 1)
     );

@@ -1,9 +1,9 @@
 import React from "react";
 import img from "../../../../images/cocktail-panel.jpg";
 
-import "./Panel.scss";
+import "./SplashScreen.scss";
 
-const Panel = (props) => {
+const SplashScreen = (props) => {
   const { className } = props;
   return (
     <div className={`${className} panel`}>
@@ -25,4 +25,4 @@ const Panel = (props) => {
   );
 };
 
-export default Panel;
+export default SplashScreen;

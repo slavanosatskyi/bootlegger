@@ -1,0 +1,1 @@
+export const QUIZ_INGREDIENTS_GRID_SIZE = 12;
