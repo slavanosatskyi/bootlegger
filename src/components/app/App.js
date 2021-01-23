@@ -1,7 +1,7 @@
 import React from "react";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
-import Quiz from "../quiz/Quiz";
+import QuizContainer from "../quiz/QuizContainer";
 import Wiki from "../wiki/Wiki";
 import Header from "../header/Header";
 
@@ -14,7 +14,7 @@ const App = () => {
         <Header />
         <Switch>
           <Route exact path={["/", "/quiz"]}>
-            <Quiz />
+            <QuizContainer />
           </Route>
           <Route path="/wiki">
             <Wiki />

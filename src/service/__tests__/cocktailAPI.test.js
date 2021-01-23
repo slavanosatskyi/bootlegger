@@ -10,7 +10,7 @@ afterEach(() => {
 test("getRandomCocktail returns a cocktail", async () => {
   axios.get
     .mockResolvedValueOnce({
-      drinks: [
+      data: {drinks: [
         {
           idDrink: "1",
           strDrink: "whiskey sour",
@@ -24,10 +24,10 @@ test("getRandomCocktail returns a cocktail", async () => {
           strMeasure3: "3 oz",
         },
       ],
-    })
-    .mockResolvedValueOnce({ ingredients: [{ idIngredient: "1" }] })
-    .mockResolvedValueOnce({ ingredients: [{ idIngredient: "2" }] })
-    .mockResolvedValueOnce({ ingredients: [{ idIngredient: "3" }] });
+    }})
+    .mockResolvedValueOnce({ data: {ingredients: [{ idIngredient: "1" }] }})
+    .mockResolvedValueOnce({ data: {ingredients: [{ idIngredient: "2" }] }})
+    .mockResolvedValueOnce({ data: {ingredients: [{ idIngredient: "3" }] }});
 
   const expected = {
     id: "1",
@@ -64,8 +64,8 @@ test("getRandomCocktail returns a cocktail", async () => {
 
 test("getAllCocktails returns a list of cocktails", async () => {
   axios.get
-    .mockResolvedValueOnce({ drinks: [{ strCategory: "alcohol" }] })
-    .mockResolvedValueOnce({
+    .mockResolvedValueOnce({ data: {drinks: [{ strCategory: "alcohol" }] }})
+    .mockResolvedValueOnce({data: {
       drinks: [
         {
           idDrink: "1",
@@ -90,21 +90,21 @@ test("getAllCocktails returns a list of cocktails", async () => {
           strMeasure2: "2 oz",
         },
       ],
+    }})
+    .mockResolvedValueOnce({
+      data: {ingredients: [{ idIngredient: "1", strIngredient: "Brandy" }]},
     })
     .mockResolvedValueOnce({
-      ingredients: [{ idIngredient: "1", strIngredient: "Brandy" }],
+      data: { ingredients: [{ idIngredient: "2", strIngredient: "Gin" }]},
     })
     .mockResolvedValueOnce({
-      ingredients: [{ idIngredient: "2", strIngredient: "Gin" }],
+      data: {ingredients: [{ idIngredient: "3", strIngredient: "Sweet Vermouth" }]},
     })
     .mockResolvedValueOnce({
-      ingredients: [{ idIngredient: "3", strIngredient: "Sweet Vermouth" }],
+      data: {ingredients: [{ idIngredient: "4", strIngredient: "Tomato" }]},
     })
     .mockResolvedValueOnce({
-      ingredients: [{ idIngredient: "4", strIngredient: "Tomato" }],
-    })
-    .mockResolvedValueOnce({
-      ingredients: [{ idIngredient: "5", strIngredient: "Vodka" }],
+      data: {ingredients: [{ idIngredient: "5", strIngredient: "Vodka" }]},
     });
 
   const cocktails = await api.getAllCocktails();
@@ -168,7 +168,7 @@ test("getAllCocktails returns a list of cocktails", async () => {
 test("getAllIngredients returns a list of ingredients", async () => {
   axios.get
     .mockResolvedValueOnce({
-      drinks: [
+      data: {drinks: [
         {
           strIngredient1: "sugar",
         },
@@ -179,10 +179,10 @@ test("getAllIngredients returns a list of ingredients", async () => {
           strIngredient1: "lime",
         },
       ],
-    })
-    .mockResolvedValueOnce({ idIngredient: "1", strIngredient: "sugar" })
-    .mockResolvedValueOnce({ idIngredient: "2", strIngredient: "salt" })
-    .mockResolvedValueOnce({ idIngredient: "3", strIngredient: "lime" });
+    }})
+    .mockResolvedValueOnce({data: {ingredients: [{ idIngredient: "1", strIngredient: "sugar" }]}})
+    .mockResolvedValueOnce({data: {ingredients: [{ idIngredient: "2", strIngredient: "salt" }]}})
+    .mockResolvedValueOnce({data: {ingredients: [{ idIngredient: "3", strIngredient: "lime" }]}});
 
   const ingredients = await api.getAllIngredients();
   const expected = [

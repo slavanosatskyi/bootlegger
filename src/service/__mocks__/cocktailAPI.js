@@ -1,3 +1,45 @@
+export const getRandomCocktail = async () => ({
+  id: "1",
+  title: "Blood Marry",
+  imgUrl: "image/preview",
+  recipe: "instructions",
+  ingredients: [
+    { id: "1", title: "Tomato", imgUrl: "imageUrl", measure: "1/2 oz" },
+    { id: "3", title: "Vodka", imgUrl: "imageUrl", measure: "1/2 oz" },
+  ],
+});
+
+export const getAllCocktails = async () => {};
+
+export async function getAllIngredients() {
+  return [
+    buildIngridient("1", "Tomato"),
+    buildIngridient("2", "Whisky"),
+    buildIngridient("3", "Vodka"),
+    buildIngridient("4", "Gin"),
+    buildIngridient("5", "Beer"),
+    buildIngridient("6", "Milk"),
+    buildIngridient("7", "Honey"),
+    buildIngridient("8", "Lime"),
+    buildIngridient("9", "Lemon"),
+    buildIngridient("10", "Chocolate"),
+    buildIngridient("11", "Sugar"),
+    buildIngridient("12", "Salt"),
+  ];
+}
+
+const buildIngridient = (id, title) => ({
+  id,
+  title,
+  imgUrl: "imageUrl",
+  recipe: "instructions",
+  measure: "1/2 oz",
+});
+
+///////////////////////
+// DEPRICATED
+//////////////////////
+
 export class Cocktail {
   constructor({ idDrink, strDrink, ingredients, strDrinkThumb }) {
     this.id = idDrink;
@@ -12,44 +54,10 @@ export class Ingredient {
     this.id = id;
     this.name = name;
   }
-
-  equals(other) {
-    return other instanceof Ingredient && other.id === this.id;
-  }
 }
 
 export class CocktailDBAPI {
-  static async getRandomCocktail() {
-    return new Cocktail({
-      idDrink: "1",
-      strDrink: "Blood Marry",
-      ingredients: [new Ingredient("1", "Tomato"), new Ingredient("3", "Vodka")],
-      strDrinkThumb: "image",
-    });
-  }
-
   static async getAllCocktails() {
     return [];
-  }
-
-  static getIngredientImg(ingredient) {
-    return `https://www.thecocktaildb.com/images/ingredients/${ingredient}-Medium.png`;
-  }
-
-  static async getAllIngredients() {
-    return [
-      new Ingredient("1", "Tomato"),
-      new Ingredient("2", "Whisky"),
-      new Ingredient("3", "Vodka"),
-      new Ingredient("4", "Gin"),
-      new Ingredient("5", "Beer"),
-      new Ingredient("6", "Milk"),
-      new Ingredient("7", "Honey"),
-      new Ingredient("8", "Lime"),
-      new Ingredient("9", "Lemon"),
-      new Ingredient("10", "Chocolate"),
-      new Ingredient("11", "Sugar"),
-      new Ingredient("12", "Salt"),
-    ];
   }
 }

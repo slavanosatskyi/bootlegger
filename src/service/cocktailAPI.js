@@ -9,7 +9,7 @@ export const getRandomCocktail = async () => {
     const response = await axios.get(
       "https://www.thecocktaildb.com/api/json/v1/1/random.php"
     );
-    const cocktailData = response.drinks[0];
+    const cocktailData = response.data.drinks[0];
     const ingredients = await getCocktailIngredients(cocktailData);
     return {
       id: cocktailData.idDrink,
@@ -33,7 +33,7 @@ export const getAllCocktails = async () => {
     throw Error("Error while getting the list of category drinks");
   }
 
-  categories = categories.drinks.map(({ strCategory }) => strCategory);
+  categories = categories.data.drinks.map(({ strCategory }) => strCategory);
 
   let cocktails = [];
   for (let category of categories) {
@@ -49,7 +49,7 @@ export const getAllCocktails = async () => {
   } catch {
     throw Error("Error while getting drinks for all categories");
   }
-  cocktails = cocktails.map((item) => item.drinks);
+  cocktails = cocktails.map((item) => item.data.drinks);
   cocktails = cocktails.flat();
 
   let ingredients = [];
@@ -58,8 +58,8 @@ export const getAllCocktails = async () => {
   }
   try {
     ingredients = await Promise.all(ingredients);
-  } catch {
-    throw Error("Error while getting ingredients for cocktails");
+  } catch(err) {
+    throw Error(`Error while getting ingredients for cocktails. ${err.message}`);
   }
 
   return cocktails.map((cocktail, index) => {
@@ -77,14 +77,14 @@ export async function getAllIngredients() {
   let ingredients = await axios.get(
     "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
   );
-
-  ingredients = ingredients.drinks.map(({ strIngredient1 }) =>
+  ingredients = ingredients.data.drinks.map(({ strIngredient1 }) =>
     axios.get(
       `https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${strIngredient1}`
     )
   );
   ingredients = await Promise.all(ingredients);
-
+  ingredients = ingredients.map(({data}) => data.ingredients[0]);
+  
   return ingredients.map(({ idIngredient, strIngredient }) => ({
     id: idIngredient,
     title: strIngredient,
@@ -121,10 +121,10 @@ const getCocktailIngredients = async (cocktail) => {
     ingredientsData = await Promise.all(ingredientsData);
     ingredients = ingredients.map((ingredient, index) => ({
       ...ingredient,
-      id: ingredientsData[index].ingredients[0].idIngredient,
+      id: ingredientsData[index].data.ingredients[0].idIngredient,
     }));
-  } catch {
-    throw Error(`Error while trying to get ingredient for ${title}`);
+  } catch(err) {
+    throw Error(`Error while trying to get ingredient. ${err}`);
   }
 
   return ingredients;
@@ -162,20 +162,6 @@ export class Ingredient {
 }
 
 export class CocktailDBAPI {
-  static async getRandomCocktail() {
-    let response = await fetch(
-      "https://www.thecocktaildb.com/api/json/v1/1/random.php"
-    );
-
-    if (response.ok) {
-      const cocktailData = await response.json();
-      cocktailData.drinks[0].ingredients = await getIngredientsForCocktail(
-        cocktailData.drinks[0]
-      );
-      return new Cocktail(cocktailData.drinks[0]);
-    }
-  }
-
   static async getAllCocktails() {
     // Get all drinks categories
     let response = await fetch(
@@ -207,59 +193,5 @@ export class CocktailDBAPI {
 
     return cocktails;
   }
-
-  static getIngredientImg(ingredient) {
-    return `https://www.thecocktaildb.com/images/ingredients/${ingredient}-Medium.png`;
-  }
-
-  static async getAllIngredients() {
-    let response = await fetch(
-      "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
-    );
-
-    if (response.ok) {
-      let ingredients = await response.json();
-      ingredients = ingredients.drinks.map((item) =>
-        fetch(
-          `https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${item.strIngredient1}`
-        )
-      );
-
-      return await rawDataToIngredients(ingredients);
-    }
-  }
 }
 
-async function getIngredientsForCocktail(drink) {
-  let fieldName = "strIngredient";
-  let index = 1;
-  let ingredientName = drink[fieldName + index];
-  let ingredients = [];
-
-  while (ingredientName) {
-    ingredients.push(
-      fetch(
-        `https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${ingredientName}`
-      )
-    );
-    index++;
-    ingredientName = drink[fieldName + index];
-  }
-
-  return await rawDataToIngredients(ingredients);
-}
-
-async function rawDataToIngredients(rawData) {
-  let ingredients = rawData;
-  ingredients = await Promise.all(ingredients);
-  ingredients = ingredients.map((ingredientData) => ingredientData.json());
-  ingredients = await Promise.all(ingredients);
-  ingredients = ingredients.map((ingredientData) => {
-    return new Ingredient(
-      ingredientData.ingredients[0].idIngredient,
-      ingredientData.ingredients[0].strIngredient
-    );
-  });
-
-  return ingredients;
-}

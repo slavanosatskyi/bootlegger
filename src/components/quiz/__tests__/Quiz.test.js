@@ -1,20 +1,24 @@
-import React from "react";
-import {
-  render,
-  fireEvent,
-  waitFor,
-  getAllByText,
-} from "@testing-library/react";
+//TODO: Create test for unselecting item
+//TODO: Create test when quiz is over and user presses on a card one more time
+//TODO: Ensure that all cocktails ingredients apperas only once
 
-import Quiz from "../Quiz.js";
-import {CocktailDBAPI, Cocktail, Ingredient} from "../../../service/cocktailAPI";
+import React from "react";
+import { render, fireEvent, waitFor } from "@testing-library/react";
+
+import Quiz from "../QuizContainer.js";
+import * as api from "../../../service/cocktailAPI";
 
 jest.mock("../../../service/cocktailAPI.js");
 
 test("should show intro screen when user opens Quiz menu", async () => {
   const { getByText, getByTestId } = render(<Quiz />);
 
-  expect(getByText("START")).toBeInTheDocument();
+  let startButton;
+  await waitFor(() => {
+    startButton = getByText("START");
+  });
+
+  expect(startButton).toBeInTheDocument();
   expect(getByTestId("intro_image")).toBeInTheDocument();
   expect(getByTestId("intro_text")).toBeInTheDocument();
 });
@@ -22,7 +26,12 @@ test("should show intro screen when user opens Quiz menu", async () => {
 test("should show quiz screen with cocktail and ingredients when a user presses button START", async () => {
   const { getByText, queryByText, queryByTestId } = render(<Quiz />);
 
-  fireEvent.click(getByText("START"));
+  let startButton;
+  await waitFor(() => {
+    startButton = getByText("START");
+  });
+  fireEvent.click(startButton);
+
   await waitFor(() => {
     getByText("NEXT");
   });
@@ -54,7 +63,13 @@ test("should show quiz screen with cocktail and ingredients when a user presses 
 
 test("when user selects all ingredinest the quiz is over", async () => {
   const { getByText, getByTestId } = render(<Quiz />);
-  fireEvent.click(getByText("START"));
+
+  let startButton;
+  await waitFor(() => {
+    startButton = getByText("START");
+  });
+
+  fireEvent.click(startButton);
   await waitFor(() => {
     getByText("NEXT");
   });
@@ -70,33 +85,46 @@ test("when user selects all ingredinest the quiz is over", async () => {
 });
 
 test("when user presses Next button a new quiz will be started", async () => {
-    const { getByText } = render(<Quiz />);
-    CocktailDBAPI.getRandomCocktail = jest.fn()
-    .mockResolvedValueOnce(new Cocktail({
-        idDrink: "1",
-        strDrink: "Blood Marry",
-        ingredients: [new Ingredient("1", "Tomato"), new Ingredient("3", "Vodka")],
-        strDrinkThumb: "image",
-      }))
-      .mockResolvedValueOnce(new Cocktail({
-        idDrink: "1",
-        strDrink: "Whisky Cola",
-        ingredients: [new Ingredient("123", "Cola"), new Ingredient("2", "Whisky")],
-        strDrinkThumb: "image",
-      }));
-
-    fireEvent.click(getByText("START"));
-    let nextButton;
-    await waitFor(() => {
-        nextButton = getByText("NEXT");
-    });
-  
-    fireEvent.click(nextButton);
-    await waitFor(() => {
-        getByText("NEXT");
+  const { getByText } = render(<Quiz />);
+  api.getRandomCocktail = jest
+    .fn()
+    .mockResolvedValueOnce({
+      id: "1",
+      title: "Blood Marry",
+      imgUrl: "image/preview",
+      recipe: "instructions",
+      ingredients: [
+        { id: "1", title: "Tomato", imgUrl: "imageUrl", measure: "1/2 oz" },
+        { id: "3", title: "Vodka", imgUrl: "imageUrl", measure: "1/2 oz" },
+      ],
+    })
+    .mockResolvedValueOnce({
+      id: "2",
+      title: "Whisky Cola",
+      imgUrl: "image/preview",
+      recipe: "instructions",
+      ingredients: [
+        { id: "123", title: "Cola", imgUrl: "imageUrl", measure: "1/2 oz" },
+        { id: "2", title: "Whisky", imgUrl: "imageUrl", measure: "1/2 oz" },
+      ],
     });
 
-    expect(getByText("Whisky Cola")).toBeInTheDocument();
-    expect(getByText("Whisky")).toBeInTheDocument();
-    expect(getByText("Cola")).toBeInTheDocument();
+  let startButton;
+  await waitFor(() => {
+    startButton = getByText("START");
   });
+  fireEvent.click(startButton);
+  let nextButton;
+  await waitFor(() => {
+    nextButton = getByText("NEXT");
+  });
+
+  fireEvent.click(nextButton);
+  await waitFor(() => {
+    getByText("NEXT");
+  });
+
+  expect(getByText("Whisky Cola")).toBeInTheDocument();
+  expect(getByText("Whisky")).toBeInTheDocument();
+  expect(getByText("Cola")).toBeInTheDocument();
+});

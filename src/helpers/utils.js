@@ -5,8 +5,8 @@ export function addRandomIngredients(
 ) {
   const uniqueIngredients = allAvaliableIngredients.filter(
     (ingredient) =>
-      !initialIngredients.find((initialIngredient) =>
-        initialIngredient.equals(ingredient)
+      !initialIngredients.find(({id}) =>
+        id === ingredient.id
       )
   );
   
