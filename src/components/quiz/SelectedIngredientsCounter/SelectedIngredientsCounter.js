@@ -3,9 +3,10 @@ import React from "react";
 const SelectedIngredientsCounter = ({
   selectedIngredientsCount: selected,
   ingredientsCount: total,
+  className
 }) => {
   return (
-    <div>
+    <div className={className}>
         {selected}/{total}
     </div>
   );

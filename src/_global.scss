@@ -1,28 +1,4 @@
 ///////////////////////
-// COMPONENTS
-///////////////////////
-button {
-  border-radius: 5px;
-  border: 1px solid $secondary-color;
-  box-shadow: 2px 2px 10px $text-color;
-  text-align: center;
-  background: $primary-color;
-  letter-spacing: 0.4rem;
-  font-size: 1.8rem;
-  font-family: $font-stack;
-  outline: none;
-
-  @include breakpoint(md) {
-      transition: background-color 0.2s;
-
-      &:hover {
-          background-color: $primary-color-selected;
-          cursor: pointer;
-      }
-  }
-}
-
-///////////////////////
 // CARDS
 ///////////////////////
 .cards-list {

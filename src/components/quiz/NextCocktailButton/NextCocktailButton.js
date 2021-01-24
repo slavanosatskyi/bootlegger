@@ -1,7 +1,7 @@
 import React from "react";
 
-const NextCocktailButton = (props) => {
-    return <button>NEXT</button>;
+const NextCocktailButton = ({className}) => {
+    return <button className={className}>NEXT</button>;
 }
 
 export default NextCocktailButton;

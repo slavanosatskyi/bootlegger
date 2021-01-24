@@ -12,10 +12,6 @@
         padding-top: 15px;
     }
 
-    &__task-description {
-
-    }
-
     &__ingredients-list {
         @include breakpoint(md) {
             width: 75%;
