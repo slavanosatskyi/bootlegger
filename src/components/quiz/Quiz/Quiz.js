@@ -1,5 +1,6 @@
 import React from "react";
 
+import { QUIZ_INGREDIENTS_GRID_SIZE } from "../../../helpers/config";
 import { getRandomCocktail } from "../../../service/cocktailAPI";
 
 import IngredientsGrid from "../IngredientsGrid/IngredientsGrid";
@@ -11,99 +12,32 @@ export default class Quiz extends React.Component {
 
     this.state = {
       cocktail: null,
+      ingredients: null
     };
 
     this.handleNextButtonClick = this.handleNextButtonClick.bind(this);
   }
 
   componentDidMount() {
-    getRandomCocktail().then((cocktail) => {
-      this.setState({ cocktail });
-    });
+    this.getNewCocktail();
   }
 
   handleNextButtonClick() {
+    this.getNewCocktail();
+  }
+
+  getNewCocktail() {
     getRandomCocktail().then((cocktail) => {
-      this.setState({ cocktail });
+      let ingredients = [...cocktail.ingredients];
+      mixinRandomIngredients(ingredients, this.props.ingredientsCatalog);
+      ingredients = shuffle(ingredients)
+      this.setState({ cocktail, ingredients});
     });
   }
 
   render() {
-    const { cocktail } = this.state;
-    const ingredients = [
-      {
-        id: "305",
-        title: "Light Rum",
-        imgUrl:
-          "https://www.thecocktaildb.com/images/ingredients/Light Rum-Medium.png",
-      },
-      {
-        id: "31",
-        title: "Applejack",
-        imgUrl:
-          "https://www.thecocktaildb.com/images/ingredients/Applejack-Medium.png",
-      },
-      {
-        id: "2",
-        title: "Gin",
-        imgUrl:
-          "https://www.thecocktaildb.com/images/ingredients/Gin-Medium.png",
-      },
-      {
-        id: "179",
-        title: "Dark Rum",
-        imgUrl:
-          "https://www.thecocktaildb.com/images/ingredients/Dark Rum-Medium.png",
-      },
-      {
-        id: "482",
-        title: "Sweet Vermouth",
-        imgUrl:
-          "https://www.thecocktaildb.com/images/ingredients/Sweet Vermouth-Medium.png",
-      },
-      {
-        id: "473",
-        title: "Strawberry Schnapps",
-        imgUrl:
-          "https://www.thecocktaildb.com/images/ingredients/Strawberry Schnapps-Medium.png",
-      },
-      {
-        id: "5",
-        title: "Scotch",
-        imgUrl:
-          "https://www.thecocktaildb.com/images/ingredients/Scotch-Medium.png",
-      },
-      {
-        id: "32",
-        title: "Apricot Brandy",
-        imgUrl:
-          "https://www.thecocktaildb.com/images/ingredients/Apricot Brandy-Medium.png",
-      },
-      {
-        id: "498",
-        title: "Triple Sec",
-        imgUrl:
-          "https://www.thecocktaildb.com/images/ingredients/Triple Sec-Medium.png",
-      },
-      {
-        id: "458",
-        title: "Southern Comfort",
-        imgUrl:
-          "https://www.thecocktaildb.com/images/ingredients/Southern Comfort-Medium.png",
-      },
-      {
-        id: "350",
-        title: "Orange Bitters",
-        imgUrl:
-          "https://www.thecocktaildb.com/images/ingredients/Orange Bitters-Medium.png",
-      },
-      {
-        id: "74",
-        title: "Brandy",
-        imgUrl:
-          "https://www.thecocktaildb.com/images/ingredients/Brandy-Medium.png",
-      },
-    ];
+    const { cocktail, ingredients } = this.state;
+
     return (
       <div>
         {cocktail && (
@@ -116,4 +50,33 @@ export default class Quiz extends React.Component {
       </div>
     );
   }
+}
+
+function mixinRandomIngredients(
+  initialIngredients,
+  ingredientsCatalog
+) {
+  const uniqueIngredients = ingredientsCatalog.filter(
+    (ingredient) => !initialIngredients.find(({ id }) => id === ingredient.id)
+  );
+
+  while (initialIngredients.length != QUIZ_INGREDIENTS_GRID_SIZE) {
+    const randomIndex = Math.round(
+      Math.random() * (uniqueIngredients.length - 1)
+    );
+    initialIngredients.push(uniqueIngredients[randomIndex]);
+    uniqueIngredients.splice(randomIndex, 1);
+  }
+}
+
+function shuffle(array) {
+  let indexes = array.map((value, index) => index);
+  let shuffledArray = [];
+  for (let i = 0; i < array.length; i++) {
+    const randomIndex = Math.round(Math.random() * (indexes.length - 1));
+    shuffledArray.push(array[indexes[randomIndex]]);
+    indexes.splice(randomIndex, 1);
+  }
+
+  return shuffledArray;
 }
