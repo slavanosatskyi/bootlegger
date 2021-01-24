@@ -6,9 +6,9 @@ import Quiz from "./Quiz/Quiz";
 import "./QuizContainer.scss";
 
 const QuizContainer = (props) => {
-  const isQuizRunning = false;
+  const isQuizRunning = true;
   const activeComponent = isQuizRunning ? (
-    <Quiz ingredientsCatalog={props.ingredientsCatalog} />
+    <Quiz className="cocktail-quiz__body" ingredientsCatalog={props.ingredientsCatalog} />
   ) : (
     <SplashScreen className="cocktail-quiz__panel"/>
   );

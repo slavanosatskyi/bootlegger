@@ -5,13 +5,15 @@ import NextCocktailButton from "../NextCocktailButton/NextCocktailButton";
 import SelectedIngredientsCounter from "../SelectedIngredientsCounter/SelectedIngredientsCounter";
 import TaskDescription from "../TaskDescription/TaskDescription";
 
+import "./QuizMenu.scss";
+
 const QuizMenu = ({ cocktail }) => {
   const selectedIngredients = cocktail.ingredients.filter(
     (ingredient) => ingredient.selected
   );
   
   return (
-    <div>
+    <div className="quiz-menu">
       <TaskDescription
         cocktailTitle={cocktail.title}
         cocktailImageUrl={cocktail.imgUrl}

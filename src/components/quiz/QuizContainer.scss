@@ -1,126 +1,5 @@
 @import "../../style.scss";
 
-///////////////////////
-// TASK DESCRIPTION
-///////////////////////
-.task-description {
-    bottom: 0px;
-    top: 50px;
-    width: 100%;
-    position: fixed;
-    background-color: $primary-color;
-    transform-origin: 39px 39px;
-    animation: 1s linear hide;
-    animation-delay: 3s;
-    animation-fill-mode: forwards;
-
-    @include breakpoint(md) {
-        animation: none;
-        position: fixed;
-        top: 50px;
-    }
-
-    @keyframes hide {
-        0% {
-            top: 50px;
-            transform: scale(1);
-            opacity: 100%;
-        }
-
-        100% {
-            transform: scale(0);
-            opacity: 0%;
-        }
-    }
-
-    &__title {
-        font-weight: 400;
-        text-align: center;
-        margin-bottom: 20px;
-
-        @include breakpoint(md) {
-            animation: none;
-            margin-bottom: 40px;
-        }
-    }
-
-    &__cocktail-image {
-        border-radius: 50%;
-        border: 1px solid $secondary-color;
-        overflow: hidden;
-        max-width: 200px;
-        max-height: 200px;
-        margin: 0 auto 20px auto;
-
-        img {
-            display: block;
-            width: 100%;
-            height: auto;
-        }
-    }
-
-    &__controls {
-        position: fixed;
-        bottom: 20px;
-        left: 0px;
-        padding: 0 20px;
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        z-index: 3;
-
-        @include breakpoint(md) {
-            left: auto;
-            width: $container-max-width * 0.25;
-        }
-    }
-
-    &__ingredients-count:hover {
-        cursor: default;
-        background-color: $primary-color;
-    }
-
-    &__ingredients-count {
-        border-radius: 50%;
-        padding: 7px;
-
-        @include breakpoint(md) {
-            border-radius: 5px;
-        }
-    }
-
-    &__ingredients-count[animation="1"] {
-        animation: 0.2s linear 4 alternate shake;
-    
-        @keyframes shake {
-            from {
-                transform: rotate(-45deg);
-            }
-    
-            to {
-                transform: rotate(45deg);
-            }
-        }
-    }
-
-    &__next-cocktail {
-        padding: 3px 7px;
-    }
-
-    &__ingredients-count,
-    &__next-cocktail {
-        font-size: 1rem;
-        letter-spacing: normal;
-
-        @include breakpoint(md) {
-            padding: 10px 15px;
-        }
-    }
-}
-
-///////////////////////
-// COCKTAIL QUIZ
-///////////////////////
 .cocktail-quiz {
     &__body {
         width: 100%;
@@ -134,10 +13,7 @@
     }
 
     &__task-description {
-        @include breakpoint(md) {
-            width: $container-max-width * 0.25;
-            padding: 20px 10px;
-        }
+
     }
 
     &__ingredients-list {

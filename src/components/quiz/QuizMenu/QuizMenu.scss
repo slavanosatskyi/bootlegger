@@ -1,0 +1,10 @@
+@import "../../../style.scss";
+
+.quiz-menu {
+    bottom: 0px;
+    top: 50px;
+    padding: 20px 10px;
+    width: $container-max-width * 0.25;
+    position: fixed;
+    background-color: $primary-color;
+}
