@@ -1,4 +1,5 @@
 //TODO: Create test for unselecting item
+//TODO: Create test for selecting item
 //TODO: Create test when quiz is over and user presses on a card one more time
 //TODO: Ensure that all cocktails ingredients apperas only once
 
@@ -10,8 +11,13 @@ import * as api from "../../../service/cocktailAPI";
 
 jest.mock("../../../service/cocktailAPI.js");
 
+let allIngredients = null;
+beforeAll(async () => {
+  allIngredients = await api.getAllIngredients();
+})
+
 test("should show intro screen when user opens Quiz menu", async () => {
-  const { getByText, getByTestId } = render(<Quiz />);
+  const { getByText, getByTestId } = render(<Quiz ingredientsCatalog={allIngredients} />);
 
   let startButton;
   await waitFor(() => {
@@ -24,7 +30,7 @@ test("should show intro screen when user opens Quiz menu", async () => {
 });
 
 test("should show quiz screen with cocktail and ingredients when a user presses button START", async () => {
-  const { getByText, queryByText, queryByTestId } = render(<Quiz />);
+  const { getByText, queryByText, queryByTestId } = render(<Quiz ingredientsCatalog={allIngredients} />);
 
   let startButton;
   await waitFor(() => {
@@ -58,11 +64,11 @@ test("should show quiz screen with cocktail and ingredients when a user presses 
   for (const ingredient of ingredients) {
     expect(getByText(ingredient)).toBeInTheDocument();
   }
-  // expect(getByText("0/2")).toBeInTheDocument(); TODO: add assertion when migration to React is done
+  expect(getByText("0/2")).toBeInTheDocument(); 
 });
 
 test("when user selects all ingredinest the quiz is over", async () => {
-  const { getByText, getByTestId } = render(<Quiz />);
+  const { getByText, getByTestId } = render(<Quiz ingredientsCatalog={allIngredients} />);
 
   let startButton;
   await waitFor(() => {
@@ -85,7 +91,7 @@ test("when user selects all ingredinest the quiz is over", async () => {
 });
 
 test("when user presses Next button a new quiz will be started", async () => {
-  const { getByText } = render(<Quiz />);
+  const { getByText } = render(<Quiz ingredientsCatalog={allIngredients} />);
   api.getRandomCocktail = jest
     .fn()
     .mockResolvedValueOnce({
