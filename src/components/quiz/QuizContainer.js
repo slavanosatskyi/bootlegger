@@ -6,13 +6,13 @@ import Quiz from "./Quiz/Quiz";
 import "./QuizContainer.scss";
 
 const QuizContainer = (props) => {
-  const isQuizRunning = true;
+  const isQuizRunning = false;
   const activeComponent = isQuizRunning ? (
     <Quiz ingredientsCatalog={props.ingredientsCatalog} />
   ) : (
-    <SplashScreen />
+    <SplashScreen className="cocktail-quiz__panel"/>
   );
-  return <Fragment>{activeComponent}</Fragment>;
+  return <main>{activeComponent}</main>;
 };
 
 export default QuizContainer;
