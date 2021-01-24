@@ -4,9 +4,17 @@ import IngredientCard from "../IngredientsCard/IngredientsCard";
 
 import "./IngredientsGrid.scss";
 
-const IngredientsGrid = ({ ingredients }) => {
-  const cards = ingredients.map(({ id, title, imgUrl }) => {
-    return <IngredientCard key={id} title={title} imgUrl={imgUrl} />;
+const IngredientsGrid = ({ ingredients, onCardClick }) => {
+  const cards = ingredients.map(({ id, title, imgUrl, selected }) => {
+    return (
+      <IngredientCard
+        key={id}
+        title={title}
+        imgUrl={imgUrl}
+        selected={selected}
+        onCardClick={() => onCardClick(id)}
+      />
+    );
   });
 
   return (

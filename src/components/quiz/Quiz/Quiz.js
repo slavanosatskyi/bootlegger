@@ -12,10 +12,11 @@ export default class Quiz extends React.Component {
 
     this.state = {
       cocktail: null,
-      ingredients: null
+      ingredients: null,
     };
 
     this.handleNextButtonClick = this.handleNextButtonClick.bind(this);
+    this.handleCardClick = this.handleCardClick.bind(this);
   }
 
   componentDidMount() {
@@ -26,36 +27,58 @@ export default class Quiz extends React.Component {
     this.getNewCocktail();
   }
 
+  handleCardClick(ingredientId) {
+    const ingredients = [...this.state.ingredients];
+    const ingredient = {
+      ...ingredients.find(({ id }) => id === ingredientId),
+    };
+    ingredient.selected = !ingredient.selected;
+    const index = ingredients.findIndex(({ id }) => id === ingredient.id);
+    ingredients[index] = ingredient;
+
+    this.setState({ ingredients });
+  }
+
   getNewCocktail() {
     getRandomCocktail().then((cocktail) => {
       let ingredients = [...cocktail.ingredients];
       mixinRandomIngredients(ingredients, this.props.ingredientsCatalog);
-      ingredients = shuffle(ingredients)
-      this.setState({ cocktail, ingredients});
+      ingredients = shuffle(ingredients);
+      ingredients.forEach((ingredient) => {
+        ingredient.selected = false;
+      });
+      this.setState({ cocktail, ingredients });
     });
   }
 
   render() {
     const { cocktail, ingredients } = this.state;
-
+    let selectedIngredients = 0;
+    if (ingredients) {
+      selectedIngredients = ingredients.filter(({ selected }) => selected);
+    }
+    
     return (
       <div>
         {cocktail && (
           <QuizMenu
             cocktail={cocktail}
+            selectedIngredientsCounts={selectedIngredients.length}
             onNextClick={this.handleNextButtonClick}
           />
         )}
-        {cocktail && <IngredientsGrid ingredients={ingredients} />}
+        {cocktail && (
+          <IngredientsGrid
+            ingredients={ingredients}
+            onCardClick={this.handleCardClick}
+          />
+        )}
       </div>
     );
   }
 }
 
-function mixinRandomIngredients(
-  initialIngredients,
-  ingredientsCatalog
-) {
+function mixinRandomIngredients(initialIngredients, ingredientsCatalog) {
   const uniqueIngredients = ingredientsCatalog.filter(
     (ingredient) => !initialIngredients.find(({ id }) => id === ingredient.id)
   );

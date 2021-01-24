@@ -7,11 +7,7 @@ import TaskDescription from "../TaskDescription/TaskDescription";
 
 import "./QuizMenu.scss";
 
-const QuizMenu = ({ cocktail, onNextClick }) => {
-  const selectedIngredients = cocktail.ingredients.filter(
-    (ingredient) => ingredient.selected
-  );
-  
+const QuizMenu = ({ cocktail, selectedIngredientsCounts, onNextClick }) => {  
   return (
     <div className="quiz-menu">
       <TaskDescription
@@ -21,7 +17,7 @@ const QuizMenu = ({ cocktail, onNextClick }) => {
       <ControlsPanel>
         <SelectedIngredientsCounter
           className="button controls controls__selected-counter"
-          selectedIngredientsCount={selectedIngredients.length}
+          selectedIngredientsCount={selectedIngredientsCounts}
           ingredientsCount={cocktail.ingredients.length}
         />
         <NextCocktailButton className="button controls" onClick={onNextClick}/>
