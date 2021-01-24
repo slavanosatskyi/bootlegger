@@ -4,9 +4,8 @@ import img from "../../../../images/cocktail-panel.jpg";
 import "./SplashScreen.scss";
 
 const SplashScreen = (props) => {
-  const { className } = props;
   return (
-    <div className={`${className} panel`}>
+    <div className="splash-screen">
       <div className="panel__logo">
         <img data-testid="intro_image" src={img} alt="" />
       </div>

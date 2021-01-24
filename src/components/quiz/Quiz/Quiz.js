@@ -3,7 +3,7 @@ import React from "react";
 import IngredientsGrid from "../IngredientsGrid/IngredientsGrid"
 import QuizMenu from "../QuizMenu/QuizMenu";
 
-const Quiz = ({className}) => {
+const Quiz = (props) => {
   const cocktail = {
     id: "14978",
     title: "Rum Punch",
@@ -123,7 +123,7 @@ const Quiz = ({className}) => {
     },
   ];
   return (
-    <div className={`${className}`}>
+    <div>
       <QuizMenu cocktail={cocktail} />
       <IngredientsGrid ingredients={ingredients} />
     </div>

@@ -1,14 +1,18 @@
 import React from "react";
 
-const IngredientCard = ({title, imgUrl}) => {
-    return (
-        <div>
-            <div>
-                <img src={imgUrl}></img>
-            </div>
-            <div>{title}</div>
+import "../../../style.scss";
+
+const IngredientCard = ({ title, imgUrl }) => {
+  return (
+    <li className="col-6 col-md-3">
+      <div className="card">
+        <div className="card__image">
+          <img src={imgUrl}></img>
         </div>
-    )
-}
+        <div className="card__name">{title}</div>
+      </div>
+    </li>
+  );
+};
 
 export default IngredientCard;

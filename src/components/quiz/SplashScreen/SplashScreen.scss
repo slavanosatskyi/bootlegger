@@ -1,8 +1,11 @@
 @import "../../../style.scss";
 
-.panel {
+.splash-screen {
     display: flex;
     justify-content: space-evenly;
+    width: 75%;
+    margin: 0 auto;
+    padding-top: 15px;
 
     &__logo {
         display: none;
