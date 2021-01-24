@@ -12,25 +12,15 @@
     background-color: $primary-color;
 }
 
-.controls {
-    border-radius: 5px;
-    border: 1px solid $secondary-color;
-    box-shadow: 2px 2px 10px $text-color;
-    text-align: center;
-    background: $primary-color;
-    font-family: $font-stack;
+.button.controls {
     font-size: 1rem;
-    outline: none;
+    letter-spacing: normal;
     padding: 10px 15px;
 
-    &__button {
-        @include breakpoint(md) {
-            transition: background-color 0.2s;
-      
-            &:hover {
-                background-color: $primary-color-selected;
-                cursor: pointer;
-            }
+    &__selected-counter {
+        cursor: default !important; //TODO: get rid of important modificator 
+        &:hover {
+            background-color: $primary-color;
         }
     }
 }

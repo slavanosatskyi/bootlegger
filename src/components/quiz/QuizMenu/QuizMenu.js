@@ -20,11 +20,11 @@ const QuizMenu = ({ cocktail }) => {
       />
       <ControlsPanel>
         <SelectedIngredientsCounter
-          className="controls"
+          className="button controls controls__selected-counter"
           selectedIngredientsCount={selectedIngredients.length}
           ingredientsCount={cocktail.ingredients.length}
         />
-        <NextCocktailButton className="controls controls__button"/>
+        <NextCocktailButton className="button controls"/>
       </ControlsPanel>
     </div>
   );
