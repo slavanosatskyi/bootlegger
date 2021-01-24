@@ -1,0 +1,15 @@
+@import "../../../style.scss";
+
+.counter[animation="1"] {
+    animation: 0.2s linear 4 alternate shake;
+
+    @keyframes shake {
+        from {
+            transform: rotate(-45deg);
+        }
+
+        to {
+            transform: rotate(45deg);
+        }
+    }
+}
