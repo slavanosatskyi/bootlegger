@@ -28,6 +28,11 @@ export default class Quiz extends React.Component {
   }
 
   handleCardClick(ingredientId) {
+    const selectedIngredients = this.getSelectedIngredients();
+    if (selectedIngredients.length === this.state.cocktail.ingredients.length) {
+      return;
+    }
+
     const ingredients = [...this.state.ingredients];
     const ingredient = {
       ...ingredients.find(({ id }) => id === ingredientId),
@@ -37,6 +42,11 @@ export default class Quiz extends React.Component {
     ingredients[index] = ingredient;
 
     this.setState({ ingredients });
+  }
+
+  getSelectedIngredients() {
+    const { ingredients } = this.state;
+    return ingredients.filter(({ selected }) => selected);
   }
 
   getNewCocktail() {
@@ -53,11 +63,11 @@ export default class Quiz extends React.Component {
 
   render() {
     const { cocktail, ingredients } = this.state;
-    let selectedIngredients = 0;
+    let selectedIngredients = null;
     if (ingredients) {
-      selectedIngredients = ingredients.filter(({ selected }) => selected);
+      selectedIngredients = this.getSelectedIngredients();
     }
-    
+
     return (
       <div>
         {cocktail && (
@@ -69,6 +79,8 @@ export default class Quiz extends React.Component {
         )}
         {cocktail && (
           <IngredientsGrid
+            isQuizOver={cocktail.ingredients.length === selectedIngredients.length}
+            cocktailIngredients={cocktail.ingredients}
             ingredients={ingredients}
             onCardClick={this.handleCardClick}
           />

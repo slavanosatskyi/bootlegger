@@ -4,7 +4,7 @@ import IngredientCard from "../IngredientsCard/IngredientsCard";
 
 import "./IngredientsGrid.scss";
 
-const IngredientsGrid = ({ ingredients, onCardClick }) => {
+const IngredientsGrid = ({ isQuizOver, ingredients, cocktailIngredients, onCardClick }) => {
   const cards = ingredients.map(({ id, title, imgUrl, selected }) => {
     return (
       <IngredientCard
@@ -13,6 +13,8 @@ const IngredientsGrid = ({ ingredients, onCardClick }) => {
         imgUrl={imgUrl}
         selected={selected}
         onCardClick={() => onCardClick(id)}
+        isQuizOver={isQuizOver}
+        isCocktailIngredient={cocktailIngredients.some((ingredient) => ingredient.id === id)}
       />
     );
   });
