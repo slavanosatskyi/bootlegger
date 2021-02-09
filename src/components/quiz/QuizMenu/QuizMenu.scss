@@ -1,10 +1,9 @@
 @import "../../../style.scss";
 
 .quiz-menu {
-    display: none;
-
     @include breakpoint(md) {
         display: flex;
+        width: $container-max-width * 0.25;
     }
 
     flex-direction: column;
@@ -13,8 +12,14 @@
     bottom: 0px;
     top: 50px;
     padding: 20px 10px;
-    width: $container-max-width * 0.25;
     background-color: $primary-color;
+    width: 100vw;
+    transition: transform ease-in-out 0.6s;
+    transform-origin: 39px 39px;
+
+    &.collapsed {
+        transform: scale(0);
+    }
 }
 
 .button.controls {

@@ -1,0 +1,9 @@
+@import "../../../style.scss";
+
+.controls-panel_desktop {
+    display: none;
+
+    @include breakpoint(md) {
+        display: block;
+    }
+}

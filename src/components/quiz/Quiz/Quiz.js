@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import { QUIZ_INGREDIENTS_GRID_SIZE } from "../../../helpers/config";
 import { getRandomCocktail } from "../../../service/cocktailAPI";
@@ -71,19 +71,21 @@ export default class Quiz extends React.Component {
     return (
       <div>
         {cocktail && (
-          <QuizMenu
-            cocktail={cocktail}
-            selectedIngredientsCounts={selectedIngredients.length}
-            onNextClick={this.handleNextButtonClick}
-          />
-        )}
-        {cocktail && (
-          <IngredientsGrid
-            isQuizOver={cocktail.ingredients.length === selectedIngredients.length}
-            cocktailIngredients={cocktail.ingredients}
-            ingredients={ingredients}
-            onCardClick={this.handleCardClick}
-          />
+          <Fragment>
+            <IngredientsGrid
+              isQuizOver={
+                cocktail.ingredients.length === selectedIngredients.length
+              }
+              cocktailIngredients={cocktail.ingredients}
+              ingredients={ingredients}
+              onCardClick={this.handleCardClick}
+            />
+            <QuizMenu
+              cocktail={cocktail}
+              selectedIngredientsCounts={selectedIngredients.length}
+              onNextClick={this.handleNextButtonClick}
+            />
+          </Fragment>
         )}
       </div>
     );
