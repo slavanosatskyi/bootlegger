@@ -15,7 +15,7 @@ const IngredientCard = ({
 
   return (
     <li className="col-6 col-md-3" onClick={onCardClick}>
-      <div className={`card ${selectedClass} ${grayedOut} ${correct} ${wrong}`}>
+      <div data-testid={wrong ? "wrong" : correct ? "correct" : ""} className={`card ${selectedClass} ${grayedOut} ${correct} ${wrong}`}>
         <div className="card__image">
           <img src={imgUrl}></img>
         </div>

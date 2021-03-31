@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { BrowserView, MobileView } from "react-device-detect";
 
 import ControlsPanelDesktop from "../ControlsPanelDesktop/ControlsPanelDesktop";
 import ControlsPanelMobile from "../ControlsPanelMobile/ControlsPanelMobile";
@@ -26,7 +27,7 @@ export default class QuizMenu extends React.Component {
     if (screen.width > 768) {
       return;
     }
-    
+
     setTimeout(() => {
       this.setState({ isMenuCollapsed: true });
     }, 3000);
@@ -36,7 +37,7 @@ export default class QuizMenu extends React.Component {
     if (screen.width > 768) {
       return;
     }
-    
+
     if (prevProps.cocktail.id != this.props.cocktail.id) {
       this.setState({ isMenuCollapsed: false });
     }
@@ -73,13 +74,17 @@ export default class QuizMenu extends React.Component {
         <ShowDescriptionButton
           onClick={this.handleShowDescriptionButtonClick}
         />
-        <ControlsPanelMobile>{buttonsGroup}</ControlsPanelMobile>
+        <MobileView>
+          <ControlsPanelMobile>{buttonsGroup}</ControlsPanelMobile>
+        </MobileView>
         <div className={`quiz-menu ${isMenuCollapsed ? "collapsed" : ""}`}>
           <TaskDescription
             cocktailTitle={cocktail.title}
             cocktailImageUrl={cocktail.imgUrl}
           />
-          <ControlsPanelDesktop>{buttonsGroup}</ControlsPanelDesktop>
+          <BrowserView>
+            <ControlsPanelDesktop>{buttonsGroup}</ControlsPanelDesktop>
+          </BrowserView>
         </div>
       </Fragment>
     );

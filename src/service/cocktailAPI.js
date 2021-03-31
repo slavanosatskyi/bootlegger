@@ -24,43 +24,53 @@ export const getRandomCocktail = async () => {
 };
 
 export const getAllCocktails = async () => {
-  let categories = [];
-  try {
-    categories = await axios.get(
-      "https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list"
-    );
-  } catch {
-    throw Error("Error while getting the list of category drinks");
+  const getAllCategories = async () => {
+    let categories = [];
+    try {
+      categories = await axios.get(
+        "https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list"
+      );
+    } catch {
+      throw Error("Error while getting the list of category drinks");
+    }
+
+    return categories.data.drinks.map(({ strCategory }) => strCategory);
   }
 
-  categories = categories.data.drinks.map(({ strCategory }) => strCategory);
+  const getCocktailsByCategories = async (categories) => {
+    let cocktails = [];
+    for (let category of categories) {
+      cocktails.push(
+        axios.get(
+          `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`
+        )
+      );
+    }
+  
+    try {
+      cocktails = await Promise.all(cocktails);
+    } catch {
+      throw Error("Error while getting drinks for all categories");
+    }
 
-  let cocktails = [];
-  for (let category of categories) {
-    cocktails.push(
-      axios.get(
-        `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`
-      )
-    );
+    return cocktails.map((item) => item.data.drinks).flat();
   }
 
-  try {
-    cocktails = await Promise.all(cocktails);
-  } catch {
-    throw Error("Error while getting drinks for all categories");
+  const getIngredienstForEachCocktail = async (cocktails) => {
+    let ingredients = [];
+    for (let i = 0; i < cocktails.length; i++) {
+      ingredients.push(getCocktailIngredients(cocktails[i]));
+    }
+    try {
+      return await Promise.all(ingredients);
+    } catch(err) {
+      throw Error(`Error while getting ingredients for cocktails. ${err.message}`);
+    }
   }
-  cocktails = cocktails.map((item) => item.data.drinks);
-  cocktails = cocktails.flat();
 
-  let ingredients = [];
-  for (let i = 0; i < cocktails.length; i++) {
-    ingredients.push(getCocktailIngredients(cocktails[i]));
-  }
-  try {
-    ingredients = await Promise.all(ingredients);
-  } catch(err) {
-    throw Error(`Error while getting ingredients for cocktails. ${err.message}`);
-  }
+  const categories = await getAllCategories();
+  const cocktails = await getCocktailsByCategories(categories);
+  const ingredients = await getIngredienstForEachCocktail(cocktails);
 
   return cocktails.map((cocktail, index) => {
     return {
