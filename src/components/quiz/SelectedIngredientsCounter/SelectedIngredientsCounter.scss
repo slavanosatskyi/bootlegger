@@ -1,6 +1,6 @@
-@import "../../../style.scss";
+@use "../../../mixins";
 
-@include breakpoint(md) {
+@include mixins.breakpoint(md) {
     .counter[animation="1"] {
         animation: 0.2s linear 4 alternate shake;
     

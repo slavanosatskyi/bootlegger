@@ -1,7 +1,7 @@
-@import "../../style.scss";
+@use "../../variables";
 
 .app {
-    max-width: $container-max-width;
+    max-width: variables.$container-max-width;
     margin: 0 auto;
     position: relative;
   }

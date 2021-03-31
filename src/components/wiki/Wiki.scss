@@ -1,4 +1,5 @@
-@import "../../style.scss";
+@use "../../variables";
+@use "../../mixins";
 
 .dimmer {
     display: none;
@@ -21,7 +22,7 @@
     border-bottom: 3px solid;
     outline: none;
     font-size: 1.5rem;
-    font-family: $font-stack;
+    font-family: variables.$font-stack;
     width: 100%;
     padding: 5px;
 }
@@ -72,7 +73,7 @@
     }
 
     &__current-page {
-        background: $primary-color;
+        background: variables.$primary-color;
     }
 
     &_hidden {
@@ -86,7 +87,7 @@
 
 .popup {
     display: none;
-    background-color: $primary-color;
+    background-color: variables.$primary-color;
     width: 75%;
     height: 75vh;
     position: fixed;
@@ -109,7 +110,7 @@
 
         &:hover {
             background-color: transparent;
-            color: $text-color-selected;
+            color: variables.$text-color-selected;
             cursor: pointer;
         }
     }

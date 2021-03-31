@@ -1,9 +1,10 @@
-@import "../../../style.scss";
+@use "../../../variables";
+@use "../../../mixins";
 
 .quiz-menu {
-    @include breakpoint(md) {
+    @include mixins.breakpoint(md) {
         display: flex;
-        width: $container-max-width * 0.25;
+        width: variables.$container-max-width * 0.25;
     }
 
     flex-direction: column;
@@ -12,7 +13,7 @@
     bottom: 0px;
     top: 50px;
     padding: 20px 10px;
-    background-color: $primary-color;
+    background-color: variables.$primary-color;
     width: 100vw;
     transition: transform ease-in-out 0.6s;
     transform-origin: 39px 39px;
@@ -36,10 +37,10 @@
 
         cursor: default !important; //TODO: get rid of important modificator 
         &:hover {
-            background-color: $primary-color;
+            background-color: variables.$primary-color;
         }
 
-        @include breakpoint(md) {
+        @include mixins.breakpoint(md) {
             border-radius: 5px;
             width: auto;
             height: auto;

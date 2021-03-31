@@ -1,4 +1,4 @@
-@import "../../../style.scss";
+@use "../../../mixins";
 
 button.task-description-button {
     position: fixed;
@@ -11,7 +11,7 @@ button.task-description-button {
     height: 38px;
     z-index: 3;
 
-    @include breakpoint(md) {
+    @include mixins.breakpoint(md) {
         display: none;
     }
  }

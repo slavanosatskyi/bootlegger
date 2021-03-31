@@ -19,7 +19,7 @@ export const getRandomCocktail = async () => {
       ingredients: ingredients,
     };
   } catch (err) {
-    throw err;
+    throw Error("Error while getting a random cocktail: " + err);
   }
 };
 

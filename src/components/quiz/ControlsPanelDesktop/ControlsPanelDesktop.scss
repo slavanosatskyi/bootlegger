@@ -1,9 +1,9 @@
-@import "../../../style.scss";
+@use "../../../mixins";
 
 .controls-panel_desktop {
     display: none;
 
-    @include breakpoint(md) {
+    @include mixins.breakpoint(md) {
         display: block;
     }
 }

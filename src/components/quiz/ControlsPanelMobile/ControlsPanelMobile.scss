@@ -1,4 +1,4 @@
-@import "../../../style.scss";
+@use "../../../mixins";
 
 .controls-panel_mobile {
     position: fixed;
@@ -6,7 +6,7 @@
     width: 100%;
     padding: 0 10px;
 
-    @include breakpoint(md) {
+    @include mixins.breakpoint(md) {
         display: none;
     }
 }

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 
 import SplashScreen from "./SplashScreen/SplashScreen";
 import Quiz from "./Quiz/Quiz";
